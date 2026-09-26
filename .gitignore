@@ -1,0 +1,8 @@
+build/
+results/*
+!results/.gitkeep
+__pycache__/
+*.pyc
+
+profiles/results/*
+!profiles/results/.gitkeep

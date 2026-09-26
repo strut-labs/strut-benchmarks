@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "tasks": {
+    "hello": {
+      "description": "Process startup and minimal stdout.",
+      "expected_stdout": "hello, world!\n"
+    },
+    "arithmetic": {
+      "description": "50 million integer modulo/add iterations.",
+      "expected_stdout": "399999964\n"
+    },
+    "fibonacci": {
+      "description": "Recursive fib(40), stressing scalar function calls.",
+      "expected_stdout": "102334155\n"
+    },
+    "vector_sum": {
+      "description": "Grow a dynamic integer array to one million elements then sum it.",
+      "expected_stdout": "499999500000\n"
+    },
+    "threads": {
+      "description": "Four concurrent CPU workers, joined before summing their outputs.",
+      "expected_stdout": "319999910\n"
+    },
+    "hot_loop": {
+      "description": "200 million integer multiply/add/modulo iterations to reduce process-startup noise.",
+      "expected_stdout": "9600000026\n"
+    },
+    "lambda_map": {
+      "description": "Build one million integers, map a lambda over them, then sum the transformed array.",
+      "expected_stdout": "999999000000\n"
+    },
+    "pointer_rc": {
+      "description": "Five million copies/dereferences of the language's ordinary safe shared-lifetime pointer/reference mechanism.",
+      "expected_stdout": "35000000\n"
+    },
+    "pointer_rc_long": {
+      "description": "Fifty million copies/dereferences of the language's ordinary safe shared-lifetime pointer/reference mechanism, reducing process-startup noise.",
+      "expected_stdout": "350000000\n"
+    },
+    "hash_map": {
+      "description": "Hash-map insert and lookup over 200k integer pairs.",
+      "expected_stdout": "19999900000\n"
+    },
+    "ordered_map": {
+      "description": "Ordered-map insert and lookup over 200k integer pairs.",
+      "expected_stdout": "19999900000\n"
+    },
+    "hash_set": {
+      "description": "Hash-set insert and membership over 200k integers.",
+      "expected_stdout": "200000\n"
+    },
+    "queue_ops": {
+      "description": "Queue push/front/pop over 200k integers.",
+      "expected_stdout": "19999900000\n"
+    },
+    "stack_ops": {
+      "description": "Stack push/top/pop over 200k integers.",
+      "expected_stdout": "19999900000\n"
+    },
+    "priority_queue_ops": {
+      "description": "Max-first priority queue push/top/pop over 200k integers.",
+      "expected_stdout": "19999900000\n"
+    }
+  }
+}
