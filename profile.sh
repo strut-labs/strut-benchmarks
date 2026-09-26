@@ -10,7 +10,7 @@ STRUT_BIN="${STRUT_BIN:-$BUILD_DIR/strut}"
 RUNS="${PROFILE_RUNS:-10}"
 BUILD_JOBS="${STRUT_BUILD_JOBS:-$(getconf _NPROCESSORS_ONLN 2>/dev/null || echo 2)}"
 BENCH_LANGUAGES="${PROFILE_BENCH_LANGUAGES:-strut,cpp,rust,go}"
-BENCH_TASKS="${PROFILE_BENCH_TASKS:-hot_loop,lambda_map,pointer_rc,pointer_rc_long,vector_sum,hash_map,ordered_map,hash_set,queue_ops,stack_ops,priority_queue_ops}"
+BENCH_TASKS="${PROFILE_BENCH_TASKS:-hot_loop,lambda_map,pointer_rc,pointer_rc_long,vector_sum,hash_map,ordered_map,hash_set,queue_ops,queue_ops_long,stack_ops,priority_queue_ops}"
 
 # CMake caches absolute source paths. A build/ directory copied or extracted from
 # another machine/workspace is not reusable and can leave Strut embedding stale

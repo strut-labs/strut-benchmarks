@@ -60,6 +60,10 @@
     "priority_queue_ops": {
       "description": "Max-first priority queue push/top/pop over 200k integers.",
       "expected_stdout": "19999900000\n"
+    },
+    "queue_ops_long": {
+      "description": "Push and pop two million integers through the language queue abstraction.",
+      "expected_stdout": "1999999000000\n"
     }
   }
 }
