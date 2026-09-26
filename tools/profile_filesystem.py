@@ -29,10 +29,10 @@ def main():
             d=tree/f'd{i%20}';d.mkdir(exist_ok=True);(d/f'f{i}.txt').write_text('x')
         q=str(tree).replace('\\','\\\\').replace('"','\\"')
         sources={
-          'strut':f'include <filesystem>;\nfunction main() -> void : FilesystemError {{ string[] xs := walk("{q}"); print(xs.length); }}\n',
-          'cpp':f'#include <filesystem>\n#include <iostream>\nint main(){{long long n=0;for(auto const&e:std::filesystem::recursive_directory_iterator("{q}"))++n;std::cout<<n<<"\\n";}}\n',
-          'rust':f'use std::fs; use std::path::Path; fn walk(p:&Path,n:&mut usize){{for e in fs::read_dir(p).unwrap(){{let p=e.unwrap().path();*n+=1;if p.is_dir(){{walk(&p,n)}}}}}} fn main(){{let mut n=0;walk(Path::new("{q}"),&mut n);println!("{{}}",n);}}\n',
-          'go':f'package main\nimport("fmt";"io/fs";"path/filepath")\nfunc main(){{n:=0;filepath.WalkDir("{q}",func(p string,d fs.DirEntry,e error)error{{if e!=nil{{return e}};if p!="{q}"{{n++}};return nil}});fmt.Println(n)}}\n'
+          'strut':f'include <filesystem>;\ninclude <vector>;\nfunction main() -> void : FilesystemError {{ string[] xs := walk("{q}"); print(xs.length); }}\n',
+          'cpp':f'#include <algorithm>\n#include <filesystem>\n#include <iostream>\n#include <string>\n#include <vector>\nint main(){{std::vector<std::string> xs;std::filesystem::path root="{q}";for(auto const&e:std::filesystem::recursive_directory_iterator(root))xs.push_back(e.path().lexically_relative(root).generic_string());std::sort(xs.begin(),xs.end());std::cout<<xs.size()<<"\\n";}}\n',
+          'rust':f'use std::fs; use std::path::{{Path,PathBuf}}; fn walk(root:&Path,p:&Path,xs:&mut Vec<String>){{for e in fs::read_dir(p).unwrap(){{let q:PathBuf=e.unwrap().path();xs.push(q.strip_prefix(root).unwrap().to_string_lossy().replace("\\\\","/"));if q.is_dir(){{walk(root,&q,xs)}}}}}} fn main(){{let root=Path::new("{q}");let mut xs=Vec::new();walk(root,root,&mut xs);xs.sort();println!("{{}}",xs.len());}}\n',
+          'go':f'package main\nimport("fmt";"io/fs";"path/filepath";"sort")\nfunc main(){{root:="{q}";xs:=[]string{{}};filepath.WalkDir(root,func(p string,d fs.DirEntry,e error)error{{if e!=nil{{return e}};if p!=root{{r,_:=filepath.Rel(root,p);xs=append(xs,filepath.ToSlash(r))}};return nil}});sort.Strings(xs);fmt.Println(len(xs))}}\n'
         }
         exts={'strut':'p','cpp':'cpp','rust':'rs','go':'go'}
         for lang,text in sources.items():
