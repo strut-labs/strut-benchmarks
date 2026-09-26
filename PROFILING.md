@@ -154,3 +154,13 @@ That gives us enough evidence to separate frontend/compiler work from generated-
 The bootstrap backend now has a feature-minimal code-generation path for ordinary scalar, array/lambda and safe-pointer programs. Simple programs no longer unconditionally include JSONIC or emit the full filesystem/process/network/HTTP/SQLite runtime into the generated C++ translation unit. Direct one-file release builds also omit LTO because there is only one translation unit; project/object builds keep LTO for cross-object optimisation.
 
 This means the next local profile is especially useful as a before/after check. Pay attention to `generated_cpp_bytes`, `host_object_ms`, `host_link_ms`, and the complete user-visible compile time for `hot_loop`, `lambda_map`, and `pointer_rc`.
+
+## HTTP throughput profile
+
+For a less noisy server measurement than the 1,000-request feature smoke test, run:
+
+```bash
+python3 tools/profile_http.py --strut ../strut/build/strut
+```
+
+It performs warmup plus repeated 10,000-request localhost runs at concurrency 1, 8 and 32 and records median throughput plus p95/p99 latency. The server intentionally closes each connection, so this measures Strut's current HTTP/1.1 server model rather than keep-alive throughput.

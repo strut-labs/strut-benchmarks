@@ -10,11 +10,12 @@ CASES={
  'filesystem_path':('inline','include <filesystem>;\nfunction main() -> void : FilesystemError { print(filename("a/b.txt")); }\n'),
  'filesystem_io':('inline','include <filesystem>;\nfunction main() -> void : FilesystemError { string x := read_file("x"); print(x); }\n'),
  'http_server':('fixture','http_server.p'),
+ 'http_client':('fixture','http_client.p'),
  'json':('fixture','json_parse.p'),
  'async':('fixture','async_tasks.p'),
  'sqlite':('fixture','sqlite_loop.p'),
 }
-BUDGET={'vector':(12000,180),'map':(14000,220),'tuple':(12000,180),'filesystem':(8000,100),'filesystem_path':(9000,120),'filesystem_io':(12000,140),'http_server':(25000,180),'json':(15000,160),'async':(12000,160),'sqlite':(20000,200)}
+BUDGET={'vector':(12000,180),'map':(14000,220),'tuple':(12000,180),'filesystem':(8000,100),'filesystem_path':(9000,120),'filesystem_io':(12000,140),'http_server':(25000,180),'http_client':(18000,140),'json':(15000,160),'async':(12000,160),'sqlite':(20000,200)}
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--strut',default='../strut/build/strut');a=ap.parse_args();root=Path(__file__).resolve().parents[1];st=Path(a.strut);st=st if st.is_absolute() else (root/st).resolve();bad=[]
  with tempfile.TemporaryDirectory(prefix='strut-codegen-budget-') as td:

@@ -10,7 +10,7 @@ STRUT_BIN="${STRUT_BIN:-$BUILD_DIR/strut}"
 RUNS="${PROFILE_RUNS:-10}"
 BUILD_JOBS="${STRUT_BUILD_JOBS:-$(getconf _NPROCESSORS_ONLN 2>/dev/null || echo 2)}"
 BENCH_LANGUAGES="${PROFILE_BENCH_LANGUAGES:-strut,cpp,rust,go}"
-BENCH_TASKS="${PROFILE_BENCH_TASKS:-hot_loop,lambda_map,pointer_rc,pointer_rc_long,vector_sum,hash_map,ordered_map,hash_set,queue_ops,queue_ops_long,stack_ops,priority_queue_ops}"
+BENCH_TASKS="${PROFILE_BENCH_TASKS:-hot_loop,lambda_map,pointer_rc,pointer_rc_long,vector_sum,hash_map,ordered_map,hash_set,hash_set_long,queue_ops,queue_ops_long,stack_ops,priority_queue_ops,priority_queue_ops_long}"
 
 # CMake caches absolute source paths. A build/ directory copied or extracted from
 # another machine/workspace is not reusable and can leave Strut embedding stale
@@ -78,6 +78,7 @@ echo "  python3 tools/compare_asm.py vector_sum --strut '$STRUT_BIN'"
 echo "  python3 tools/compare_asm.py lambda_map --strut '$STRUT_BIN'"
 echo "  python3 tools/compare_asm.py pointer_rc_long --strut '$STRUT_BIN'"
 
-echo "Optional heavier I/O profile:"
+echo "Optional heavier I/O / HTTP profiles:"
 echo "  python3 tools/profile_file_io.py --strut '$STRUT_BIN'"
 echo "  python3 tools/profile_filesystem.py --strut '$STRUT_BIN'"
+echo "  python3 tools/profile_http.py --strut '$STRUT_BIN'"

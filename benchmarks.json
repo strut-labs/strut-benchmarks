@@ -64,6 +64,14 @@
     "queue_ops_long": {
       "description": "Push and pop two million integers through the language queue abstraction.",
       "expected_stdout": "1999999000000\n"
+    },
+    "hash_set_long": {
+      "description": "Hash-set insert and membership over two million integers.",
+      "expected_stdout": "2000000\n"
+    },
+    "priority_queue_ops_long": {
+      "description": "Max-first priority queue push/top/pop over two million integers.",
+      "expected_stdout": "1999999000000\n"
     }
   }
 }

@@ -3,6 +3,6 @@ function main() -> void : NetworkError {
     app.get("/hello", (http_request req) => {
         return http_text("hello, world!");
     });
-    app.listen("127.0.0.1", 18091, 2000);
+    app.listen("127.0.0.1", 18091, 500000);
     return;
 }

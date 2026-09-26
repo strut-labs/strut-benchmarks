@@ -7,7 +7,8 @@ MODULES={
  'ordered_map':('ordered_map','ordered_map<int,int> x;'),'ordered_set':('ordered_set','ordered_set<int> x;'),'queue':('queue','queue<int> x;'),'stack':('stack','stack<int> x;'),
  'priority_queue':('priority_queue','priority_queue<int> x;'),'tuple':('tuple','tuple<int,double> x := (1,2.0);'),
  'filesystem_exists':('filesystem','bool x := exists(".");'),'filesystem_path':('filesystem','string x := filename("a/b.txt");'),
- 'filesystem_walk':('filesystem','string[] x := walk(".");'),'filesystem_io':('filesystem','string x := read_file("x");')
+ 'filesystem_walk':('filesystem','string[] x := walk(".");'),'filesystem_io':('filesystem','string x := read_file("x");'),
+ 'http_client':('', 'response := http_get("http://127.0.0.1:9/"); print(response.status);')
 }
 def timed(cmd):
  t=time.perf_counter_ns(); p=subprocess.run(cmd,text=True,capture_output=True); return p,(time.perf_counter_ns()-t)/1e6
@@ -17,9 +18,11 @@ def main():
   td=Path(td)
   for m,(module,body) in MODULES.items():
    src=td/f'{m}.p';cpp=td/f'{m}.cpp';exe=td/m
-   sig='function main() -> void : FilesystemError' if m.startswith('filesystem_') else 'function main() -> void'
-   extra='include <vector>;\n' if m=='filesystem_walk' else ''
-   src.write_text(f'include <{module}>;\n{extra}{sig} {{ {body} }}\n')
+   if m=='http_client':
+    sig='function main() -> void : HttpError'; extra=''; prefix=''
+   else:
+    sig='function main() -> void : FilesystemError' if m.startswith('filesystem_') else 'function main() -> void'; extra='include <vector>;\n' if m=='filesystem_walk' else ''; prefix=f'include <{module}>;\n'
+   src.write_text(f'{prefix}{extra}{sig} {{ {body} }}\n')
    runs=[]
    for _ in range(a.runs):
     p,ms=timed([str(st),str(src),'--release','-o',str(exe)]); assert p.returncode==0,p.stderr; runs.append(ms)
