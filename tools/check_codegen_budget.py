@@ -5,6 +5,7 @@ from pathlib import Path
 CASES={
  'hello':('inline','function main() -> int { print("hello"); return 0; }\n'),
  'thread':('inline','function main() -> void : ThreadError { worker := thread(() => { print("work"); }); worker.join(); }\n'),
+ 'atomic':('inline','atomic<int> count := 0; function main() -> int { count.fetch_add(1); return count.load(); }\n'),
  'vector':('inline','include <vector>;\nfunction main() -> void { vector<int> x; }\n'),
  'map':('inline','include <map>;\nfunction main() -> void { map<int,int> x; }\n'),
  'tuple':('inline','include <tuple>;\nfunction main() -> void { tuple<int,double> x := (1,2.0); }\n'),
@@ -17,7 +18,7 @@ CASES={
  'async':('fixture','async_tasks.p'),
  'sqlite':('fixture','sqlite_loop.p'),
 }
-BUDGET={'hello':(5000,80),'thread':(12000,180),'vector':(12000,180),'map':(14000,220),'tuple':(12000,180),'filesystem':(8000,100),'filesystem_path':(9000,120),'filesystem_io':(12000,140),'http_server':(25000,210),'http_client':(18000,140),'json':(15000,160),'async':(12000,160),'sqlite':(20000,200)}
+BUDGET={'hello':(5000,80),'thread':(12000,180),'atomic':(12000,180),'vector':(12000,180),'map':(14000,220),'tuple':(12000,180),'filesystem':(8000,100),'filesystem_path':(9000,120),'filesystem_io':(12000,140),'http_server':(25000,210),'http_client':(18000,140),'json':(15000,160),'async':(12000,160),'sqlite':(20000,200)}
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--strut',default='../strut/build/strut');a=ap.parse_args();root=Path(__file__).resolve().parents[1];st=Path(a.strut);st=st if st.is_absolute() else (root/st).resolve();bad=[]
  with tempfile.TemporaryDirectory(prefix='strut-codegen-budget-') as td:

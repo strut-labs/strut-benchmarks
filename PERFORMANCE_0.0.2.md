@@ -22,6 +22,18 @@ Profiling found that a trivial string literal selected the full 689-line runtime
 
 That is an 85% Hello World compile-time reduction and a 72% thread compile-time reduction. Permanent codegen tests and budgets guard both paths. The HTTP server line budget was adjusted from 180 to 210 because the certified lifecycle implementation is 192 lines while remaining within its existing 25,000-byte ceiling.
 
+An independent five-run A/B rebuild from the immutable `v0.0.2` source, using
+the same current fixtures and release commands, measured 1,659 to 315 ms for
+Hello World (81%) and 2,112 to 795 ms for threads (62%). The lower percentages
+under different host load still reproduce the same large structural win; the
+85%/72% figures above remain the retained full-campaign measurements.
+
+The 0.0.3 candidate additionally applies the focused concurrency runtime to
+compatible atomics. The contended atomic fixture fell from its retained
+1,824 ms compile baseline to 656 ms in a five-run profile, while generated C++
+fell from the complete runtime to 5,098 bytes / 96 lines. Atomic semantics and
+runtime throughput are unchanged.
+
 ## Compiler and build paths
 
 - Hello World: 306 ms full compile; 1.82 ms emit-C++; front end phases total about 0.36 ms; direct host compile 286 ms.
@@ -72,4 +84,11 @@ Short workloads remain sensitive to process-startup and scheduler noise. Long va
 - `results/0.0.2-performance-final/` contains timestamped JSON, CSV and Markdown views of the language comparison matrix.
 - `profiles/results/` contains compiler phases, feature profiles, incremental/project scaling, modules, atomics, generics, filesystem, file I/O, HTTP, LSP, package and startup raw samples.
 
-The next optimization pass should focus on native toolchain startup/header parsing, then the sustained reference-counting gap. Neither is a 0.0.2 release blocker.
+The next optimization pass should focus on native toolchain startup/header parsing, then the sustained reference-counting gap. Neither is a 0.0.3 release blocker.
+
+Assembly review of the sustained reference-counting case found the same
+`std::shared_ptr` ownership increment/decrement sequence in Strut and C++.
+Strut additionally preserves its required null-safe dereference path. Hardware
+counter collection was unavailable because the host has
+`kernel.perf_event_paranoid=4`; no safety-preserving micro-fix was justified for
+the 0.0.3 release.
