@@ -221,3 +221,10 @@ Additional profiling tools:
 - `tools/check_codegen_budget.py` trips on large accidental generated-runtime growth.
 - `tools/profile_file_io.py` measures cached whole-file reads at 1 KiB, 1 MiB and 100 MiB by default.
 - `tools/profile_filesystem.py` compares recursive directory traversal against C++/Rust/Go on a generated tree and records the environment caveat explicitly.
+- `tools/profile_atomics.py` compares contended atomic increments with explicit mutex locking.
+- `tools/profile_generics.py` measures front-end scaling across increasing generic instantiation counts.
+- `tools/profile_lsp.py` measures editor requests over the real stdio LSP transport.
+- `tools/profile_packages.py` measures locked, warm-cache package operations on a diamond graph.
+- `tools/profile_startup.py` measures CLI startup and trivial compile/run latency.
+
+The certified Strut 0.0.2 baseline and interpretation are recorded in `PERFORMANCE_0.0.2.md`.

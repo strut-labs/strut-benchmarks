@@ -1,0 +1,51 @@
+{
+  "hostname": "nick-NUC12SNKi72",
+  "files": 2000,
+  "note": "Recursive traversal of an already-created tree; page-cache/filesystem state still affects results.",
+  "walk": {
+    "strut": {
+      "status": "ok",
+      "runtime_ms_median": 4.75111,
+      "runs": [
+        4.643886,
+        4.937952,
+        4.559548,
+        4.75111,
+        5.152011
+      ]
+    },
+    "cpp": {
+      "status": "ok",
+      "runtime_ms_median": 3.385474,
+      "runs": [
+        3.845511,
+        3.73348,
+        3.315801,
+        3.382962,
+        3.385474
+      ]
+    },
+    "rust": {
+      "status": "ok",
+      "runtime_ms_median": 8.619534,
+      "runs": [
+        6.699327,
+        6.777332,
+        9.295265,
+        8.619534,
+        10.415806
+      ]
+    },
+    "go": {
+      "status": "ok",
+      "runtime_ms_median": 4.264238,
+      "runs": [
+        4.161377,
+        4.519523,
+        4.461594,
+        4.264238,
+        3.68337
+      ]
+    }
+  }
+}

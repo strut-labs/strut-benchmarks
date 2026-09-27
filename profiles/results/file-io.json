@@ -1,0 +1,156 @@
+{
+  "hostname": "nick-NUC12SNKi72",
+  "note": "Cached whole-file read wall time including process startup. Run on a quiet system; storage/page-cache state matters.",
+  "sizes": {
+    "1024": {
+      "strut": {
+        "status": "ok",
+        "runtime_ms_median": 1.322281,
+        "runs": [
+          1.319541,
+          1.269749,
+          1.408381,
+          1.322281,
+          1.470628
+        ],
+        "binary_bytes": 22816
+      },
+      "cpp": {
+        "status": "ok",
+        "runtime_ms_median": 1.336336,
+        "runs": [
+          1.403002,
+          1.316352,
+          1.43671,
+          1.279549,
+          1.336336
+        ],
+        "binary_bytes": 14560
+      },
+      "rust": {
+        "status": "ok",
+        "runtime_ms_median": 0.910288,
+        "runs": [
+          0.834759,
+          0.980917,
+          0.864938,
+          0.964505,
+          0.910288
+        ],
+        "binary_bytes": 349224
+      },
+      "go": {
+        "status": "ok",
+        "runtime_ms_median": 1.570997,
+        "runs": [
+          1.735069,
+          1.692339,
+          1.506885,
+          1.338689,
+          1.570997
+        ],
+        "binary_bytes": 1675426
+      }
+    },
+    "1048576": {
+      "strut": {
+        "status": "ok",
+        "runtime_ms_median": 2.445823,
+        "runs": [
+          2.445823,
+          2.555968,
+          2.669818,
+          2.43665,
+          2.253728
+        ],
+        "binary_bytes": 22816
+      },
+      "cpp": {
+        "status": "ok",
+        "runtime_ms_median": 2.716053,
+        "runs": [
+          2.65998,
+          2.896745,
+          2.716053,
+          2.901692,
+          2.474028
+        ],
+        "binary_bytes": 14560
+      },
+      "rust": {
+        "status": "ok",
+        "runtime_ms_median": 1.610688,
+        "runs": [
+          1.663063,
+          1.504651,
+          1.644479,
+          1.610688,
+          1.437564
+        ],
+        "binary_bytes": 349240
+      },
+      "go": {
+        "status": "ok",
+        "runtime_ms_median": 2.424894,
+        "runs": [
+          2.553407,
+          2.314377,
+          1.886088,
+          2.424894,
+          2.592655
+        ],
+        "binary_bytes": 1675426
+      }
+    },
+    "104857600": {
+      "strut": {
+        "status": "ok",
+        "runtime_ms_median": 89.056558,
+        "runs": [
+          99.869924,
+          86.477691,
+          88.253803,
+          90.287349,
+          89.056558
+        ],
+        "binary_bytes": 22816
+      },
+      "cpp": {
+        "status": "ok",
+        "runtime_ms_median": 91.905362,
+        "runs": [
+          86.36792,
+          91.905362,
+          95.089119,
+          102.56415,
+          87.402049
+        ],
+        "binary_bytes": 14560
+      },
+      "rust": {
+        "status": "ok",
+        "runtime_ms_median": 71.415283,
+        "runs": [
+          71.415283,
+          71.407349,
+          68.094761,
+          78.384125,
+          72.52905
+        ],
+        "binary_bytes": 349240
+      },
+      "go": {
+        "status": "ok",
+        "runtime_ms_median": 66.340066,
+        "runs": [
+          64.096675,
+          66.340066,
+          65.386575,
+          66.586215,
+          68.968923
+        ],
+        "binary_bytes": 1675426
+      }
+    }
+  }
+}

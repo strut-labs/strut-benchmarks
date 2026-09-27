@@ -1,0 +1,4194 @@
+{
+  "schema_version": 1,
+  "environment": {
+    "timestamp_utc": "2026-09-27T02:14:23.737807+00:00",
+    "hostname": "nick-NUC12SNKi72",
+    "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+    "machine": "x86_64",
+    "processor": "",
+    "cpu": "12th Gen Intel(R) Core(TM) i7-12700H",
+    "python": "3.14.4",
+    "toolchains": {
+      "strut": "strut 0.0.2",
+      "cpp": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+      "rust": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+      "go": "go version go1.26.0 linux/amd64"
+    }
+  },
+  "config": {
+    "languages": [
+      "strut",
+      "cpp",
+      "rust",
+      "go"
+    ],
+    "tasks": [
+      "hello",
+      "arithmetic",
+      "fibonacci",
+      "vector_sum",
+      "threads",
+      "hot_loop",
+      "lambda_map",
+      "pointer_rc",
+      "pointer_rc_long",
+      "hash_map",
+      "ordered_map",
+      "hash_set",
+      "queue_ops",
+      "stack_ops",
+      "priority_queue_ops",
+      "queue_ops_long",
+      "hash_set_long",
+      "priority_queue_ops_long"
+    ],
+    "compile_runs": 3,
+    "runtime_runs": 10,
+    "memory_runs": 3,
+    "warmup_runs": 2
+  },
+  "benchmarks": {
+    "hello": {
+      "description": "Process startup and minimal stdout.",
+      "expected_stdout": "hello, world!\n"
+    },
+    "arithmetic": {
+      "description": "50 million integer modulo/add iterations.",
+      "expected_stdout": "399999964\n"
+    },
+    "fibonacci": {
+      "description": "Recursive fib(40), stressing scalar function calls.",
+      "expected_stdout": "102334155\n"
+    },
+    "vector_sum": {
+      "description": "Grow a dynamic integer array to one million elements then sum it.",
+      "expected_stdout": "499999500000\n"
+    },
+    "threads": {
+      "description": "Four concurrent CPU workers, joined before summing their outputs.",
+      "expected_stdout": "319999910\n"
+    },
+    "hot_loop": {
+      "description": "200 million integer multiply/add/modulo iterations to reduce process-startup noise.",
+      "expected_stdout": "9600000026\n"
+    },
+    "lambda_map": {
+      "description": "Build one million integers, map a lambda over them, then sum the transformed array.",
+      "expected_stdout": "999999000000\n"
+    },
+    "pointer_rc": {
+      "description": "Five million copies/dereferences of the language's ordinary safe shared-lifetime pointer/reference mechanism.",
+      "expected_stdout": "35000000\n"
+    },
+    "pointer_rc_long": {
+      "description": "Fifty million copies/dereferences of the language's ordinary safe shared-lifetime pointer/reference mechanism, reducing process-startup noise.",
+      "expected_stdout": "350000000\n"
+    },
+    "hash_map": {
+      "description": "Hash-map insert and lookup over 200k integer pairs.",
+      "expected_stdout": "19999900000\n"
+    },
+    "ordered_map": {
+      "description": "Ordered-map insert and lookup over 200k integer pairs.",
+      "expected_stdout": "19999900000\n"
+    },
+    "hash_set": {
+      "description": "Hash-set insert and membership over 200k integers.",
+      "expected_stdout": "200000\n"
+    },
+    "queue_ops": {
+      "description": "Queue push/front/pop over 200k integers.",
+      "expected_stdout": "19999900000\n"
+    },
+    "stack_ops": {
+      "description": "Stack push/top/pop over 200k integers.",
+      "expected_stdout": "19999900000\n"
+    },
+    "priority_queue_ops": {
+      "description": "Max-first priority queue push/top/pop over 200k integers.",
+      "expected_stdout": "19999900000\n"
+    },
+    "queue_ops_long": {
+      "description": "Push and pop two million integers through the language queue abstraction.",
+      "expected_stdout": "1999999000000\n"
+    },
+    "hash_set_long": {
+      "description": "Hash-set insert and membership over two million integers.",
+      "expected_stdout": "2000000\n"
+    },
+    "priority_queue_ops_long": {
+      "description": "Max-first priority queue push/top/pop over two million integers.",
+      "expected_stdout": "1999999000000\n"
+    }
+  },
+  "results": {
+    "hello": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/hello.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/hello"
+        ],
+        "compile_ms": {
+          "median": 312.607266,
+          "min": 311.89707,
+          "max": 313.429618,
+          "runs": [
+            311.89707,
+            312.607266,
+            313.429618
+          ]
+        },
+        "runtime_ms": {
+          "median": 1.279749,
+          "min": 1.233156,
+          "max": 1.437737,
+          "runs": [
+            1.257377,
+            1.437737,
+            1.342571,
+            1.270095,
+            1.289403,
+            1.355676,
+            1.233156,
+            1.34103,
+            1.250289,
+            1.265036
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3908,
+          "min": 3868,
+          "max": 4032,
+          "runs": [
+            3908,
+            3868,
+            4032
+          ]
+        },
+        "binary_bytes": 14480,
+        "verbosity": {
+          "bytes": 68,
+          "lines": 4,
+          "nonblank_lines": 4,
+          "tokens": 15
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/hello.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/hello"
+        ],
+        "compile_ms": {
+          "median": 288.642289,
+          "min": 288.634203,
+          "max": 288.891566,
+          "runs": [
+            288.642289,
+            288.634203,
+            288.891566
+          ]
+        },
+        "runtime_ms": {
+          "median": 1.2978375,
+          "min": 1.193639,
+          "max": 1.373241,
+          "runs": [
+            1.327734,
+            1.244085,
+            1.315677,
+            1.279758,
+            1.303339,
+            1.309058,
+            1.373241,
+            1.292336,
+            1.193639,
+            1.202524
+          ]
+        },
+        "max_rss_kib": {
+          "median": 4040,
+          "min": 4000,
+          "max": 4040,
+          "runs": [
+            4040,
+            4000,
+            4040
+          ]
+        },
+        "binary_bytes": 14464,
+        "verbosity": {
+          "bytes": 86,
+          "lines": 6,
+          "nonblank_lines": 5,
+          "tokens": 20
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/hello.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/hello"
+        ],
+        "compile_ms": {
+          "median": 70.681428,
+          "min": 68.588257,
+          "max": 73.277909,
+          "runs": [
+            68.588257,
+            70.681428,
+            73.277909
+          ]
+        },
+        "runtime_ms": {
+          "median": 0.8358795,
+          "min": 0.727602,
+          "max": 0.918905,
+          "runs": [
+            0.918905,
+            0.842373,
+            0.915349,
+            0.829386,
+            0.788281,
+            0.81232,
+            0.727602,
+            0.898074,
+            0.868536,
+            0.789356
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2052,
+          "min": 2052,
+          "max": 2200,
+          "runs": [
+            2052,
+            2052,
+            2200
+          ]
+        },
+        "binary_bytes": 342544,
+        "verbosity": {
+          "bytes": 45,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 12
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/hello",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/hello.go"
+        ],
+        "compile_ms": {
+          "median": 102.113055,
+          "min": 99.432274,
+          "max": 102.36077,
+          "runs": [
+            102.113055,
+            99.432274,
+            102.36077
+          ]
+        },
+        "runtime_ms": {
+          "median": 1.3761375,
+          "min": 1.041849,
+          "max": 1.549994,
+          "runs": [
+            1.218446,
+            1.452891,
+            1.549994,
+            1.311347,
+            1.041849,
+            1.356139,
+            1.515298,
+            1.324197,
+            1.396136,
+            1.454142
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2152,
+          "min": 2152,
+          "max": 2152,
+          "runs": [
+            2152,
+            2152,
+            2152
+          ]
+        },
+        "binary_bytes": 1585314,
+        "verbosity": {
+          "bytes": 77,
+          "lines": 7,
+          "nonblank_lines": 5,
+          "tokens": 16
+        }
+      }
+    },
+    "arithmetic": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/arithmetic.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/arithmetic"
+        ],
+        "compile_ms": {
+          "median": 302.889421,
+          "min": 300.519836,
+          "max": 305.060572,
+          "runs": [
+            305.060572,
+            300.519836,
+            302.889421
+          ]
+        },
+        "runtime_ms": {
+          "median": 34.994195500000004,
+          "min": 33.526046,
+          "max": 46.032549,
+          "runs": [
+            35.462639,
+            46.032549,
+            34.642571,
+            38.234092,
+            37.499235,
+            34.626001,
+            34.850035,
+            33.526046,
+            34.588409,
+            35.138356
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3984,
+          "min": 3832,
+          "max": 4052,
+          "runs": [
+            3984,
+            3832,
+            4052
+          ]
+        },
+        "binary_bytes": 14456,
+        "verbosity": {
+          "bytes": 161,
+          "lines": 8,
+          "nonblank_lines": 8,
+          "tokens": 44
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/arithmetic.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/arithmetic"
+        ],
+        "compile_ms": {
+          "median": 301.65722,
+          "min": 294.619415,
+          "max": 302.364628,
+          "runs": [
+            301.65722,
+            302.364628,
+            294.619415
+          ]
+        },
+        "runtime_ms": {
+          "median": 32.84313,
+          "min": 32.143466,
+          "max": 45.652712,
+          "runs": [
+            32.49275,
+            34.075398,
+            37.160127,
+            34.607908,
+            45.652712,
+            32.54744,
+            32.496717,
+            33.13882,
+            32.222205,
+            32.143466
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3856,
+          "min": 3812,
+          "max": 4016,
+          "runs": [
+            3812,
+            3856,
+            4016
+          ]
+        },
+        "binary_bytes": 14464,
+        "verbosity": {
+          "bytes": 201,
+          "lines": 11,
+          "nonblank_lines": 10,
+          "tokens": 57
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/arithmetic.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/arithmetic"
+        ],
+        "compile_ms": {
+          "median": 76.849806,
+          "min": 72.966002,
+          "max": 79.965104,
+          "runs": [
+            72.966002,
+            76.849806,
+            79.965104
+          ]
+        },
+        "runtime_ms": {
+          "median": 28.6456375,
+          "min": 27.691904,
+          "max": 32.787497,
+          "runs": [
+            31.313512,
+            28.788035,
+            28.889836,
+            28.45232,
+            32.787497,
+            29.079223,
+            27.691904,
+            27.829411,
+            28.067336,
+            28.50324
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2040,
+          "min": 2040,
+          "max": 2056,
+          "runs": [
+            2040,
+            2056,
+            2040
+          ]
+        },
+        "binary_bytes": 343176,
+        "verbosity": {
+          "bytes": 130,
+          "lines": 7,
+          "nonblank_lines": 7,
+          "tokens": 37
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/arithmetic",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/arithmetic.go"
+        ],
+        "compile_ms": {
+          "median": 97.273455,
+          "min": 94.622551,
+          "max": 98.015134,
+          "runs": [
+            98.015134,
+            97.273455,
+            94.622551
+          ]
+        },
+        "runtime_ms": {
+          "median": 31.111297,
+          "min": 29.624912,
+          "max": 32.779749,
+          "runs": [
+            32.399903,
+            30.347723,
+            31.556484,
+            32.779749,
+            32.125695,
+            30.786572,
+            30.115047,
+            31.305428,
+            29.624912,
+            30.917166
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2156,
+          "min": 1996,
+          "max": 2340,
+          "runs": [
+            1996,
+            2156,
+            2340
+          ]
+        },
+        "binary_bytes": 1589410,
+        "verbosity": {
+          "bytes": 160,
+          "lines": 11,
+          "nonblank_lines": 9,
+          "tokens": 41
+        }
+      }
+    },
+    "fibonacci": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/fibonacci.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/fibonacci"
+        ],
+        "compile_ms": {
+          "median": 381.580328,
+          "min": 374.644002,
+          "max": 386.153919,
+          "runs": [
+            374.644002,
+            386.153919,
+            381.580328
+          ]
+        },
+        "runtime_ms": {
+          "median": 140.1480285,
+          "min": 137.909794,
+          "max": 142.813533,
+          "runs": [
+            142.813533,
+            137.909794,
+            138.765863,
+            139.0564,
+            140.507048,
+            140.770253,
+            140.99431,
+            139.839857,
+            140.4562,
+            138.884437
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3840,
+          "min": 3812,
+          "max": 3840,
+          "runs": [
+            3840,
+            3812,
+            3840
+          ]
+        },
+        "binary_bytes": 14384,
+        "verbosity": {
+          "bytes": 169,
+          "lines": 11,
+          "nonblank_lines": 10,
+          "tokens": 54
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/fibonacci.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/fibonacci"
+        ],
+        "compile_ms": {
+          "median": 321.221775,
+          "min": 319.006066,
+          "max": 323.667156,
+          "runs": [
+            321.221775,
+            319.006066,
+            323.667156
+          ]
+        },
+        "runtime_ms": {
+          "median": 138.0764695,
+          "min": 135.166682,
+          "max": 144.789828,
+          "runs": [
+            135.570905,
+            135.166682,
+            140.197622,
+            143.381582,
+            139.267232,
+            135.975557,
+            141.429667,
+            144.789828,
+            136.885707,
+            135.75305
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3852,
+          "min": 3812,
+          "max": 4052,
+          "runs": [
+            3812,
+            4052,
+            3852
+          ]
+        },
+        "binary_bytes": 14464,
+        "verbosity": {
+          "bytes": 181,
+          "lines": 13,
+          "nonblank_lines": 11,
+          "tokens": 59
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/fibonacci.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/fibonacci"
+        ],
+        "compile_ms": {
+          "median": 76.448276,
+          "min": 75.875135,
+          "max": 79.870326,
+          "runs": [
+            75.875135,
+            76.448276,
+            79.870326
+          ]
+        },
+        "runtime_ms": {
+          "median": 284.0576305,
+          "min": 265.405974,
+          "max": 299.066408,
+          "runs": [
+            282.976059,
+            289.856993,
+            288.33357,
+            286.925657,
+            285.139202,
+            299.066408,
+            282.924212,
+            265.405974,
+            276.607554,
+            268.336936
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2040,
+          "min": 2028,
+          "max": 2216,
+          "runs": [
+            2216,
+            2028,
+            2040
+          ]
+        },
+        "binary_bytes": 342688,
+        "verbosity": {
+          "bytes": 137,
+          "lines": 10,
+          "nonblank_lines": 9,
+          "tokens": 50
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/fibonacci",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/fibonacci.go"
+        ],
+        "compile_ms": {
+          "median": 101.147311,
+          "min": 99.533508,
+          "max": 101.608813,
+          "runs": [
+            99.533508,
+            101.147311,
+            101.608813
+          ]
+        },
+        "runtime_ms": {
+          "median": 446.57388649999996,
+          "min": 434.011432,
+          "max": 475.294327,
+          "runs": [
+            440.072555,
+            440.136303,
+            443.309287,
+            439.689363,
+            434.011432,
+            449.838486,
+            463.124764,
+            468.209098,
+            460.532691,
+            475.294327
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2156,
+          "min": 1996,
+          "max": 2156,
+          "runs": [
+            2156,
+            2156,
+            1996
+          ]
+        },
+        "binary_bytes": 1589410,
+        "verbosity": {
+          "bytes": 163,
+          "lines": 14,
+          "nonblank_lines": 11,
+          "tokens": 50
+        }
+      }
+    },
+    "vector_sum": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/vector_sum.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/vector_sum"
+        ],
+        "compile_ms": {
+          "median": 345.281394,
+          "min": 340.794207,
+          "max": 345.649819,
+          "runs": [
+            340.794207,
+            345.649819,
+            345.281394
+          ]
+        },
+        "runtime_ms": {
+          "median": 6.748526999999999,
+          "min": 5.965015,
+          "max": 7.0591,
+          "runs": [
+            6.902271,
+            6.854439,
+            7.0591,
+            6.773624,
+            6.436073,
+            6.37665,
+            6.72343,
+            5.965015,
+            6.561512,
+            6.916058
+          ]
+        },
+        "max_rss_kib": {
+          "median": 7704,
+          "min": 7640,
+          "max": 7716,
+          "runs": [
+            7704,
+            7640,
+            7716
+          ]
+        },
+        "binary_bytes": 14552,
+        "verbosity": {
+          "bytes": 260,
+          "lines": 15,
+          "nonblank_lines": 13,
+          "tokens": 70
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/vector_sum.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/vector_sum"
+        ],
+        "compile_ms": {
+          "median": 346.036343,
+          "min": 334.495356,
+          "max": 348.328081,
+          "runs": [
+            348.328081,
+            346.036343,
+            334.495356
+          ]
+        },
+        "runtime_ms": {
+          "median": 6.7208185,
+          "min": 6.125048,
+          "max": 7.094393,
+          "runs": [
+            6.923736,
+            6.906554,
+            6.125048,
+            6.864863,
+            7.094393,
+            6.210543,
+            6.677636,
+            6.764001,
+            6.346512,
+            6.651357
+          ]
+        },
+        "max_rss_kib": {
+          "median": 7820,
+          "min": 7744,
+          "max": 7824,
+          "runs": [
+            7820,
+            7824,
+            7744
+          ]
+        },
+        "binary_bytes": 14560,
+        "verbosity": {
+          "bytes": 314,
+          "lines": 18,
+          "nonblank_lines": 15,
+          "tokens": 84
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/vector_sum.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/vector_sum"
+        ],
+        "compile_ms": {
+          "median": 102.76344,
+          "min": 94.716691,
+          "max": 103.290907,
+          "runs": [
+            94.716691,
+            102.76344,
+            103.290907
+          ]
+        },
+        "runtime_ms": {
+          "median": 4.479063,
+          "min": 4.116109,
+          "max": 5.130677,
+          "runs": [
+            5.01629,
+            4.384805,
+            4.4169,
+            5.130677,
+            4.541226,
+            4.335848,
+            4.279424,
+            4.848958,
+            4.835982,
+            4.116109
+          ]
+        },
+        "max_rss_kib": {
+          "median": 6072,
+          "min": 6000,
+          "max": 6216,
+          "runs": [
+            6000,
+            6072,
+            6216
+          ]
+        },
+        "binary_bytes": 343704,
+        "verbosity": {
+          "bytes": 233,
+          "lines": 13,
+          "nonblank_lines": 11,
+          "tokens": 65
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/vector_sum",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/vector_sum.go"
+        ],
+        "compile_ms": {
+          "median": 101.185452,
+          "min": 99.35022,
+          "max": 105.512052,
+          "runs": [
+            105.512052,
+            99.35022,
+            101.185452
+          ]
+        },
+        "runtime_ms": {
+          "median": 24.2960395,
+          "min": 21.773321,
+          "max": 26.753787,
+          "runs": [
+            21.773321,
+            24.355244,
+            22.12577,
+            25.205315,
+            22.136746,
+            26.518232,
+            24.737271,
+            23.098852,
+            26.753787,
+            24.236835
+          ]
+        },
+        "max_rss_kib": {
+          "median": 27992,
+          "min": 17596,
+          "max": 29808,
+          "runs": [
+            29808,
+            17596,
+            27992
+          ]
+        },
+        "binary_bytes": 1589410,
+        "verbosity": {
+          "bytes": 265,
+          "lines": 17,
+          "nonblank_lines": 13,
+          "tokens": 66
+        }
+      }
+    },
+    "threads": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/threads.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/threads"
+        ],
+        "compile_ms": {
+          "median": 782.690881,
+          "min": 782.254833,
+          "max": 795.760802,
+          "runs": [
+            782.690881,
+            795.760802,
+            782.254833
+          ]
+        },
+        "runtime_ms": {
+          "median": 11.241026,
+          "min": 10.542755,
+          "max": 11.570507,
+          "runs": [
+            10.951002,
+            10.558941,
+            10.542755,
+            11.570507,
+            11.315121,
+            11.36094,
+            11.22566,
+            11.256392,
+            11.416993,
+            11.099739
+          ]
+        },
+        "max_rss_kib": {
+          "median": 4048,
+          "min": 4020,
+          "max": 4180,
+          "runs": [
+            4020,
+            4048,
+            4180
+          ]
+        },
+        "binary_bytes": 31008,
+        "verbosity": {
+          "bytes": 575,
+          "lines": 28,
+          "nonblank_lines": 24,
+          "tokens": 205
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/threads.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/threads"
+        ],
+        "compile_ms": {
+          "median": 416.40266,
+          "min": 407.044635,
+          "max": 436.972082,
+          "runs": [
+            436.972082,
+            407.044635,
+            416.40266
+          ]
+        },
+        "runtime_ms": {
+          "median": 13.860003500000001,
+          "min": 10.935354,
+          "max": 14.786382,
+          "runs": [
+            14.378019,
+            13.295323,
+            12.613656,
+            13.983679,
+            13.34455,
+            13.736328,
+            10.935354,
+            14.050103,
+            14.202893,
+            14.786382
+          ]
+        },
+        "max_rss_kib": {
+          "median": 4032,
+          "min": 4012,
+          "max": 4176,
+          "runs": [
+            4012,
+            4032,
+            4176
+          ]
+        },
+        "binary_bytes": 14632,
+        "verbosity": {
+          "bytes": 547,
+          "lines": 27,
+          "nonblank_lines": 23,
+          "tokens": 186
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/threads.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/threads"
+        ],
+        "compile_ms": {
+          "median": 284.753806,
+          "min": 277.788243,
+          "max": 298.515064,
+          "runs": [
+            277.788243,
+            284.753806,
+            298.515064
+          ]
+        },
+        "runtime_ms": {
+          "median": 13.168175999999999,
+          "min": 11.478195,
+          "max": 13.888363,
+          "runs": [
+            13.36593,
+            11.784411,
+            12.970422,
+            13.567299,
+            11.885541,
+            12.951726,
+            11.478195,
+            13.582193,
+            13.888363,
+            13.385173
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2196,
+          "min": 2052,
+          "max": 2276,
+          "runs": [
+            2276,
+            2196,
+            2052
+          ]
+        },
+        "binary_bytes": 372408,
+        "verbosity": {
+          "bytes": 479,
+          "lines": 21,
+          "nonblank_lines": 18,
+          "tokens": 159
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/threads",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/threads.go"
+        ],
+        "compile_ms": {
+          "median": 104.799032,
+          "min": 103.5834,
+          "max": 112.518589,
+          "runs": [
+            112.518589,
+            103.5834,
+            104.799032
+          ]
+        },
+        "runtime_ms": {
+          "median": 16.890898,
+          "min": 16.523845,
+          "max": 17.107727,
+          "runs": [
+            16.939959,
+            16.702718,
+            16.920199,
+            16.861597,
+            17.107727,
+            17.095281,
+            16.523845,
+            16.549113,
+            17.016168,
+            16.713403
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2148,
+          "min": 2148,
+          "max": 2340,
+          "runs": [
+            2148,
+            2340,
+            2148
+          ]
+        },
+        "binary_bytes": 1589410,
+        "verbosity": {
+          "bytes": 390,
+          "lines": 22,
+          "nonblank_lines": 18,
+          "tokens": 117
+        }
+      }
+    },
+    "hot_loop": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/hot_loop.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/hot_loop"
+        ],
+        "compile_ms": {
+          "median": 316.835329,
+          "min": 308.814342,
+          "max": 327.021443,
+          "runs": [
+            308.814342,
+            327.021443,
+            316.835329
+          ]
+        },
+        "runtime_ms": {
+          "median": 139.2467135,
+          "min": 133.836851,
+          "max": 144.502513,
+          "runs": [
+            136.374069,
+            144.026784,
+            143.638842,
+            144.502513,
+            138.697286,
+            139.796141,
+            133.836851,
+            141.56981,
+            134.731471,
+            136.244063
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3852,
+          "min": 3812,
+          "max": 4016,
+          "runs": [
+            4016,
+            3852,
+            3812
+          ]
+        },
+        "binary_bytes": 14384,
+        "verbosity": {
+          "bytes": 169,
+          "lines": 8,
+          "nonblank_lines": 8,
+          "tokens": 49
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/hot_loop.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/hot_loop"
+        ],
+        "compile_ms": {
+          "median": 313.927764,
+          "min": 297.514181,
+          "max": 314.416356,
+          "runs": [
+            297.514181,
+            314.416356,
+            313.927764
+          ]
+        },
+        "runtime_ms": {
+          "median": 142.2957075,
+          "min": 134.186534,
+          "max": 147.698207,
+          "runs": [
+            147.698207,
+            141.892012,
+            143.775073,
+            134.186534,
+            143.866371,
+            145.733063,
+            139.473217,
+            141.511111,
+            138.91156,
+            142.699403
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3812,
+          "min": 3804,
+          "max": 3868,
+          "runs": [
+            3812,
+            3868,
+            3804
+          ]
+        },
+        "binary_bytes": 14464,
+        "verbosity": {
+          "bytes": 159,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 60
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/hot_loop.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/hot_loop"
+        ],
+        "compile_ms": {
+          "median": 80.708015,
+          "min": 77.909434,
+          "max": 84.90222,
+          "runs": [
+            84.90222,
+            77.909434,
+            80.708015
+          ]
+        },
+        "runtime_ms": {
+          "median": 133.8669345,
+          "min": 125.072729,
+          "max": 159.501104,
+          "runs": [
+            134.615386,
+            130.292014,
+            125.072729,
+            129.678986,
+            128.274995,
+            149.405381,
+            159.501104,
+            140.127133,
+            137.501115,
+            133.118483
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2056,
+          "min": 2036,
+          "max": 2056,
+          "runs": [
+            2056,
+            2036,
+            2056
+          ]
+        },
+        "binary_bytes": 343000,
+        "verbosity": {
+          "bytes": 112,
+          "lines": 1,
+          "nonblank_lines": 1,
+          "tokens": 46
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/hot_loop",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/hot_loop.go"
+        ],
+        "compile_ms": {
+          "median": 105.730377,
+          "min": 105.725745,
+          "max": 107.568858,
+          "runs": [
+            107.568858,
+            105.730377,
+            105.725745
+          ]
+        },
+        "runtime_ms": {
+          "median": 152.123715,
+          "min": 142.055215,
+          "max": 163.101732,
+          "runs": [
+            151.202782,
+            150.476093,
+            153.044648,
+            163.101732,
+            142.055215,
+            150.838577,
+            160.143407,
+            144.241955,
+            157.650092,
+            156.328126
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2156,
+          "min": 2156,
+          "max": 2156,
+          "runs": [
+            2156,
+            2156,
+            2156
+          ]
+        },
+        "binary_bytes": 1589410,
+        "verbosity": {
+          "bytes": 137,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 49
+        }
+      }
+    },
+    "lambda_map": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/lambda_map.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/lambda_map"
+        ],
+        "compile_ms": {
+          "median": 365.882847,
+          "min": 363.630759,
+          "max": 376.284068,
+          "runs": [
+            376.284068,
+            365.882847,
+            363.630759
+          ]
+        },
+        "runtime_ms": {
+          "median": 8.150997,
+          "min": 7.318499,
+          "max": 9.318482,
+          "runs": [
+            9.318482,
+            7.368633,
+            8.519721,
+            8.529565,
+            8.154072,
+            8.361975,
+            7.318499,
+            7.832535,
+            8.099558,
+            8.147922
+          ]
+        },
+        "max_rss_kib": {
+          "median": 11664,
+          "min": 11508,
+          "max": 11672,
+          "runs": [
+            11672,
+            11508,
+            11664
+          ]
+        },
+        "binary_bytes": 14552,
+        "verbosity": {
+          "bytes": 318,
+          "lines": 15,
+          "nonblank_lines": 15,
+          "tokens": 92
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/lambda_map.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/lambda_map"
+        ],
+        "compile_ms": {
+          "median": 353.440503,
+          "min": 344.796283,
+          "max": 353.627749,
+          "runs": [
+            353.440503,
+            353.627749,
+            344.796283
+          ]
+        },
+        "runtime_ms": {
+          "median": 7.0833200000000005,
+          "min": 6.36184,
+          "max": 8.409234,
+          "runs": [
+            6.362697,
+            7.437699,
+            8.409234,
+            6.36184,
+            6.875874,
+            8.302802,
+            7.120832,
+            7.44947,
+            7.042846,
+            7.045808
+          ]
+        },
+        "max_rss_kib": {
+          "median": 11512,
+          "min": 11508,
+          "max": 11556,
+          "runs": [
+            11508,
+            11512,
+            11556
+          ]
+        },
+        "binary_bytes": 14560,
+        "verbosity": {
+          "bytes": 378,
+          "lines": 4,
+          "nonblank_lines": 4,
+          "tokens": 137
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/lambda_map.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/lambda_map"
+        ],
+        "compile_ms": {
+          "median": 105.585903,
+          "min": 103.107062,
+          "max": 107.608571,
+          "runs": [
+            103.107062,
+            107.608571,
+            105.585903
+          ]
+        },
+        "runtime_ms": {
+          "median": 6.0181535,
+          "min": 5.056379,
+          "max": 8.148417,
+          "runs": [
+            6.085647,
+            5.086456,
+            8.148417,
+            5.95066,
+            5.056379,
+            5.523455,
+            5.311618,
+            6.294199,
+            7.384155,
+            6.109524
+          ]
+        },
+        "max_rss_kib": {
+          "median": 9880,
+          "min": 9768,
+          "max": 9880,
+          "runs": [
+            9880,
+            9768,
+            9880
+          ]
+        },
+        "binary_bytes": 343608,
+        "verbosity": {
+          "bytes": 195,
+          "lines": 1,
+          "nonblank_lines": 1,
+          "tokens": 86
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/lambda_map",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/lambda_map.go"
+        ],
+        "compile_ms": {
+          "median": 99.387139,
+          "min": 98.557398,
+          "max": 101.836156,
+          "runs": [
+            101.836156,
+            98.557398,
+            99.387139
+          ]
+        },
+        "runtime_ms": {
+          "median": 13.3405535,
+          "min": 11.53901,
+          "max": 14.558779,
+          "runs": [
+            13.354895,
+            13.259444,
+            13.326212,
+            14.161521,
+            13.597449,
+            12.848307,
+            13.577656,
+            12.012746,
+            11.53901,
+            14.558779
+          ]
+        },
+        "max_rss_kib": {
+          "median": 18020,
+          "min": 18020,
+          "max": 18180,
+          "runs": [
+            18020,
+            18020,
+            18180
+          ]
+        },
+        "binary_bytes": 1589410,
+        "verbosity": {
+          "bytes": 333,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 124
+        }
+      }
+    },
+    "pointer_rc": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/pointer_rc.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/pointer_rc"
+        ],
+        "compile_ms": {
+          "median": 417.194444,
+          "min": 387.683038,
+          "max": 433.637435,
+          "runs": [
+            387.683038,
+            417.194444,
+            433.637435
+          ]
+        },
+        "runtime_ms": {
+          "median": 8.319312499999999,
+          "min": 6.106192,
+          "max": 12.981554,
+          "runs": [
+            12.981554,
+            7.059374,
+            9.967319,
+            8.606617,
+            6.21776,
+            8.635996,
+            10.562433,
+            6.106192,
+            6.629068,
+            8.032008
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3980,
+          "min": 3812,
+          "max": 3980,
+          "runs": [
+            3980,
+            3980,
+            3812
+          ]
+        },
+        "binary_bytes": 14624,
+        "verbosity": {
+          "bytes": 192,
+          "lines": 10,
+          "nonblank_lines": 10,
+          "tokens": 57
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/pointer_rc.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/pointer_rc"
+        ],
+        "compile_ms": {
+          "median": 400.487574,
+          "min": 390.215923,
+          "max": 408.845986,
+          "runs": [
+            408.845986,
+            400.487574,
+            390.215923
+          ]
+        },
+        "runtime_ms": {
+          "median": 8.613567,
+          "min": 5.722993,
+          "max": 17.853414,
+          "runs": [
+            7.311981,
+            5.722993,
+            6.129607,
+            17.853414,
+            15.797691,
+            9.915153,
+            10.77773,
+            6.697403,
+            13.018198,
+            6.541526
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3980,
+          "min": 3900,
+          "max": 4052,
+          "runs": [
+            4052,
+            3980,
+            3900
+          ]
+        },
+        "binary_bytes": 14632,
+        "verbosity": {
+          "bytes": 201,
+          "lines": 4,
+          "nonblank_lines": 4,
+          "tokens": 76
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/pointer_rc.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/pointer_rc"
+        ],
+        "compile_ms": {
+          "median": 90.533155,
+          "min": 86.528203,
+          "max": 96.137453,
+          "runs": [
+            90.533155,
+            96.137453,
+            86.528203
+          ]
+        },
+        "runtime_ms": {
+          "median": 51.966552,
+          "min": 50.927916,
+          "max": 62.005512,
+          "runs": [
+            62.005512,
+            58.777012,
+            53.247473,
+            52.054753,
+            51.776039,
+            54.523763,
+            51.511486,
+            50.927916,
+            51.878351,
+            51.391805
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2072,
+          "min": 2040,
+          "max": 2072,
+          "runs": [
+            2072,
+            2040,
+            2072
+          ]
+        },
+        "binary_bytes": 343080,
+        "verbosity": {
+          "bytes": 166,
+          "lines": 2,
+          "nonblank_lines": 2,
+          "tokens": 69
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/pointer_rc",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/pointer_rc.go"
+        ],
+        "compile_ms": {
+          "median": 103.538238,
+          "min": 97.928924,
+          "max": 105.674665,
+          "runs": [
+            103.538238,
+            97.928924,
+            105.674665
+          ]
+        },
+        "runtime_ms": {
+          "median": 3.519415,
+          "min": 2.671325,
+          "max": 4.599818,
+          "runs": [
+            3.27021,
+            2.712945,
+            4.594858,
+            3.828925,
+            2.671325,
+            4.599818,
+            2.90553,
+            3.618155,
+            4.558386,
+            3.420675
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2152,
+          "min": 2152,
+          "max": 2152,
+          "runs": [
+            2152,
+            2152,
+            2152
+          ]
+        },
+        "binary_bytes": 1585314,
+        "verbosity": {
+          "bytes": 141,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 55
+        }
+      }
+    },
+    "pointer_rc_long": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/pointer_rc_long.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/pointer_rc_long"
+        ],
+        "compile_ms": {
+          "median": 408.300004,
+          "min": 407.145429,
+          "max": 411.166369,
+          "runs": [
+            407.145429,
+            411.166369,
+            408.300004
+          ]
+        },
+        "runtime_ms": {
+          "median": 52.200250999999994,
+          "min": 41.005817,
+          "max": 67.104406,
+          "runs": [
+            54.924179,
+            46.709123,
+            63.208987,
+            51.151545,
+            67.104406,
+            53.248957,
+            59.106443,
+            45.434639,
+            50.948747,
+            41.005817
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3872,
+          "min": 3812,
+          "max": 3904,
+          "runs": [
+            3812,
+            3904,
+            3872
+          ]
+        },
+        "binary_bytes": 14624,
+        "verbosity": {
+          "bytes": 193,
+          "lines": 10,
+          "nonblank_lines": 10,
+          "tokens": 57
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/pointer_rc_long.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/pointer_rc_long"
+        ],
+        "compile_ms": {
+          "median": 369.092599,
+          "min": 368.993182,
+          "max": 371.294086,
+          "runs": [
+            371.294086,
+            368.993182,
+            369.092599
+          ]
+        },
+        "runtime_ms": {
+          "median": 43.0780605,
+          "min": 42.32904,
+          "max": 65.144058,
+          "runs": [
+            42.400339,
+            42.451436,
+            54.6549,
+            44.024617,
+            42.32904,
+            42.497204,
+            51.387834,
+            43.240209,
+            42.915912,
+            65.144058
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3812,
+          "min": 3704,
+          "max": 3812,
+          "runs": [
+            3812,
+            3704,
+            3812
+          ]
+        },
+        "binary_bytes": 14632,
+        "verbosity": {
+          "bytes": 202,
+          "lines": 4,
+          "nonblank_lines": 4,
+          "tokens": 76
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/pointer_rc_long.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/pointer_rc_long"
+        ],
+        "compile_ms": {
+          "median": 87.526204,
+          "min": 83.144498,
+          "max": 87.878804,
+          "runs": [
+            83.144498,
+            87.526204,
+            87.878804
+          ]
+        },
+        "runtime_ms": {
+          "median": 518.335789,
+          "min": 514.602116,
+          "max": 519.827477,
+          "runs": [
+            518.229752,
+            514.896293,
+            514.602116,
+            518.636385,
+            518.441826,
+            516.81157,
+            519.576668,
+            519.827477,
+            518.790665,
+            517.93573
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2040,
+          "min": 2040,
+          "max": 2072,
+          "runs": [
+            2040,
+            2072,
+            2040
+          ]
+        },
+        "binary_bytes": 343080,
+        "verbosity": {
+          "bytes": 167,
+          "lines": 2,
+          "nonblank_lines": 2,
+          "tokens": 69
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/pointer_rc_long",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/pointer_rc_long.go"
+        ],
+        "compile_ms": {
+          "median": 98.326719,
+          "min": 97.024568,
+          "max": 108.160071,
+          "runs": [
+            108.160071,
+            97.024568,
+            98.326719
+          ]
+        },
+        "runtime_ms": {
+          "median": 19.4017925,
+          "min": 12.594881,
+          "max": 22.503346,
+          "runs": [
+            20.958568,
+            22.503346,
+            17.105662,
+            19.031638,
+            19.859852,
+            19.07007,
+            19.733515,
+            20.008252,
+            12.594881,
+            13.388304
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2152,
+          "min": 2152,
+          "max": 2152,
+          "runs": [
+            2152,
+            2152,
+            2152
+          ]
+        },
+        "binary_bytes": 1585314,
+        "verbosity": {
+          "bytes": 142,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 55
+        }
+      }
+    },
+    "hash_map": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/hash_map.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/hash_map"
+        ],
+        "compile_ms": {
+          "median": 399.746316,
+          "min": 385.397033,
+          "max": 408.633786,
+          "runs": [
+            385.397033,
+            399.746316,
+            408.633786
+          ]
+        },
+        "runtime_ms": {
+          "median": 17.247974,
+          "min": 13.967077,
+          "max": 19.974495,
+          "runs": [
+            19.85183,
+            14.322352,
+            13.967077,
+            18.302997,
+            16.192951,
+            19.974495,
+            18.31428,
+            18.620657,
+            15.202262,
+            14.600425
+          ]
+        },
+        "max_rss_kib": {
+          "median": 12856,
+          "min": 12796,
+          "max": 13000,
+          "runs": [
+            13000,
+            12856,
+            12796
+          ]
+        },
+        "binary_bytes": 14552,
+        "verbosity": {
+          "bytes": 188,
+          "lines": 2,
+          "nonblank_lines": 2,
+          "tokens": 80
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/hash_map.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/hash_map"
+        ],
+        "compile_ms": {
+          "median": 388.983356,
+          "min": 381.439589,
+          "max": 394.03739,
+          "runs": [
+            381.439589,
+            388.983356,
+            394.03739
+          ]
+        },
+        "runtime_ms": {
+          "median": 17.668495999999998,
+          "min": 15.411652,
+          "max": 20.456796,
+          "runs": [
+            16.979951,
+            19.31297,
+            20.456796,
+            19.580976,
+            16.857858,
+            16.85403,
+            15.411652,
+            18.142173,
+            17.194819,
+            19.113327
+          ]
+        },
+        "max_rss_kib": {
+          "median": 12956,
+          "min": 12816,
+          "max": 13016,
+          "runs": [
+            13016,
+            12816,
+            12956
+          ]
+        },
+        "binary_bytes": 14560,
+        "verbosity": {
+          "bytes": 201,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 87
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/hash_map.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/hash_map"
+        ],
+        "compile_ms": {
+          "median": 190.831583,
+          "min": 189.263657,
+          "max": 199.752198,
+          "runs": [
+            199.752198,
+            190.831583,
+            189.263657
+          ]
+        },
+        "runtime_ms": {
+          "median": 10.1967185,
+          "min": 9.743529,
+          "max": 11.533674,
+          "runs": [
+            11.418035,
+            10.675463,
+            11.533674,
+            10.325026,
+            9.743529,
+            9.968234,
+            10.068411,
+            9.97101,
+            9.875811,
+            10.384867
+          ]
+        },
+        "max_rss_kib": {
+          "median": 5636,
+          "min": 5528,
+          "max": 5848,
+          "runs": [
+            5528,
+            5636,
+            5848
+          ]
+        },
+        "binary_bytes": 355408,
+        "verbosity": {
+          "bytes": 191,
+          "lines": 1,
+          "nonblank_lines": 1,
+          "tokens": 86
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/hash_map",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/hash_map.go"
+        ],
+        "compile_ms": {
+          "median": 103.408546,
+          "min": 102.627905,
+          "max": 110.110422,
+          "runs": [
+            110.110422,
+            103.408546,
+            102.627905
+          ]
+        },
+        "runtime_ms": {
+          "median": 14.145964500000002,
+          "min": 12.042627,
+          "max": 18.402025,
+          "runs": [
+            12.042627,
+            13.740162,
+            15.991778,
+            14.714024,
+            12.894625,
+            14.366548,
+            14.180706,
+            12.81096,
+            14.111223,
+            18.402025
+          ]
+        },
+        "max_rss_kib": {
+          "median": 6948,
+          "min": 6948,
+          "max": 6948,
+          "runs": [
+            6948,
+            6948,
+            6948
+          ]
+        },
+        "binary_bytes": 1589410,
+        "verbosity": {
+          "bytes": 162,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 77
+        }
+      }
+    },
+    "ordered_map": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/ordered_map.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/ordered_map"
+        ],
+        "compile_ms": {
+          "median": 380.085953,
+          "min": 376.264666,
+          "max": 380.922097,
+          "runs": [
+            380.085953,
+            380.922097,
+            376.264666
+          ]
+        },
+        "runtime_ms": {
+          "median": 48.104749999999996,
+          "min": 42.341246,
+          "max": 51.085179,
+          "runs": [
+            46.042599,
+            43.051424,
+            51.085179,
+            49.892887,
+            44.494815,
+            50.297127,
+            42.341246,
+            47.791774,
+            48.417726,
+            50.494855
+          ]
+        },
+        "max_rss_kib": {
+          "median": 13096,
+          "min": 13092,
+          "max": 13144,
+          "runs": [
+            13144,
+            13092,
+            13096
+          ]
+        },
+        "binary_bytes": 14552,
+        "verbosity": {
+          "bytes": 204,
+          "lines": 2,
+          "nonblank_lines": 2,
+          "tokens": 80
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/ordered_map.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/ordered_map"
+        ],
+        "compile_ms": {
+          "median": 402.601424,
+          "min": 385.054108,
+          "max": 406.8456,
+          "runs": [
+            385.054108,
+            402.601424,
+            406.8456
+          ]
+        },
+        "runtime_ms": {
+          "median": 51.0399825,
+          "min": 44.704785,
+          "max": 58.661541,
+          "runs": [
+            49.37994,
+            58.661541,
+            45.979214,
+            55.826812,
+            44.704785,
+            47.625642,
+            53.012896,
+            52.800682,
+            52.632702,
+            49.447263
+          ]
+        },
+        "max_rss_kib": {
+          "median": 13092,
+          "min": 13092,
+          "max": 13268,
+          "runs": [
+            13092,
+            13268,
+            13092
+          ]
+        },
+        "binary_bytes": 14560,
+        "verbosity": {
+          "bytes": 181,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 87
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/ordered_map.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/ordered_map"
+        ],
+        "compile_ms": {
+          "median": 207.438895,
+          "min": 195.255647,
+          "max": 209.156837,
+          "runs": [
+            207.438895,
+            209.156837,
+            195.255647
+          ]
+        },
+        "runtime_ms": {
+          "median": 25.885330500000002,
+          "min": 24.633852,
+          "max": 29.672299,
+          "runs": [
+            24.633852,
+            25.082378,
+            24.945623,
+            25.815297,
+            25.725978,
+            29.672299,
+            26.64236,
+            25.955364,
+            27.152481,
+            28.163221
+          ]
+        },
+        "max_rss_kib": {
+          "median": 6204,
+          "min": 6024,
+          "max": 6236,
+          "runs": [
+            6204,
+            6236,
+            6024
+          ]
+        },
+        "binary_bytes": 347168,
+        "verbosity": {
+          "bytes": 193,
+          "lines": 1,
+          "nonblank_lines": 1,
+          "tokens": 86
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/ordered_map",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/ordered_map.go"
+        ],
+        "compile_ms": {
+          "median": 102.434501,
+          "min": 98.027777,
+          "max": 104.545463,
+          "runs": [
+            102.434501,
+            104.545463,
+            98.027777
+          ]
+        },
+        "runtime_ms": {
+          "median": 14.056591000000001,
+          "min": 12.67489,
+          "max": 18.211885,
+          "runs": [
+            16.044432,
+            12.67489,
+            18.211885,
+            14.515533,
+            13.597649,
+            12.831274,
+            17.21632,
+            12.872411,
+            17.843548,
+            13.165244
+          ]
+        },
+        "max_rss_kib": {
+          "median": 7108,
+          "min": 6948,
+          "max": 7108,
+          "runs": [
+            6948,
+            7108,
+            7108
+          ]
+        },
+        "binary_bytes": 1589410,
+        "verbosity": {
+          "bytes": 162,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 77
+        }
+      }
+    },
+    "hash_set": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/hash_set.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/hash_set"
+        ],
+        "compile_ms": {
+          "median": 422.393681,
+          "min": 400.144291,
+          "max": 427.475094,
+          "runs": [
+            400.144291,
+            427.475094,
+            422.393681
+          ]
+        },
+        "runtime_ms": {
+          "median": 16.347458,
+          "min": 15.466269,
+          "max": 17.696611,
+          "runs": [
+            16.583968,
+            16.019255,
+            16.542832,
+            17.142098,
+            17.696611,
+            17.078611,
+            16.123699,
+            15.747512,
+            15.466269,
+            16.152084
+          ]
+        },
+        "max_rss_kib": {
+          "median": 13044,
+          "min": 12916,
+          "max": 13064,
+          "runs": [
+            13064,
+            13044,
+            12916
+          ]
+        },
+        "binary_bytes": 14480,
+        "verbosity": {
+          "bytes": 188,
+          "lines": 2,
+          "nonblank_lines": 2,
+          "tokens": 84
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/hash_set.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/hash_set"
+        ],
+        "compile_ms": {
+          "median": 401.681753,
+          "min": 401.555914,
+          "max": 405.060422,
+          "runs": [
+            401.555914,
+            401.681753,
+            405.060422
+          ]
+        },
+        "runtime_ms": {
+          "median": 16.8517975,
+          "min": 15.475653,
+          "max": 19.934757,
+          "runs": [
+            19.934757,
+            18.078351,
+            19.876072,
+            17.281853,
+            15.515774,
+            16.170082,
+            17.469693,
+            15.475653,
+            15.925359,
+            16.421742
+          ]
+        },
+        "max_rss_kib": {
+          "median": 12856,
+          "min": 12712,
+          "max": 12936,
+          "runs": [
+            12856,
+            12712,
+            12936
+          ]
+        },
+        "binary_bytes": 14560,
+        "verbosity": {
+          "bytes": 194,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 82
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/hash_set.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/hash_set"
+        ],
+        "compile_ms": {
+          "median": 183.143743,
+          "min": 182.46807,
+          "max": 196.209612,
+          "runs": [
+            196.209612,
+            182.46807,
+            183.143743
+          ]
+        },
+        "runtime_ms": {
+          "median": 8.900625,
+          "min": 7.797302,
+          "max": 10.992602,
+          "runs": [
+            7.797302,
+            9.045714,
+            8.767239,
+            8.677263,
+            9.516496,
+            9.034011,
+            9.591689,
+            7.81529,
+            10.992602,
+            8.661631
+          ]
+        },
+        "max_rss_kib": {
+          "median": 4252,
+          "min": 4140,
+          "max": 4300,
+          "runs": [
+            4140,
+            4252,
+            4300
+          ]
+        },
+        "binary_bytes": 355024,
+        "verbosity": {
+          "bytes": 179,
+          "lines": 1,
+          "nonblank_lines": 1,
+          "tokens": 79
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/hash_set",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/hash_set.go"
+        ],
+        "compile_ms": {
+          "median": 100.796152,
+          "min": 98.513303,
+          "max": 104.620062,
+          "runs": [
+            104.620062,
+            98.513303,
+            100.796152
+          ]
+        },
+        "runtime_ms": {
+          "median": 14.6017525,
+          "min": 12.561976,
+          "max": 17.428244,
+          "runs": [
+            15.456041,
+            15.016906,
+            14.259399,
+            14.944106,
+            12.561976,
+            15.820104,
+            17.428244,
+            14.093313,
+            13.542107,
+            13.429501
+          ]
+        },
+        "max_rss_kib": {
+          "median": 6948,
+          "min": 6788,
+          "max": 7044,
+          "runs": [
+            6948,
+            6788,
+            7044
+          ]
+        },
+        "binary_bytes": 1589410,
+        "verbosity": {
+          "bytes": 176,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 88
+        }
+      }
+    },
+    "queue_ops": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/queue_ops.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/queue_ops"
+        ],
+        "compile_ms": {
+          "median": 389.730213,
+          "min": 384.277093,
+          "max": 404.369382,
+          "runs": [
+            389.730213,
+            404.369382,
+            384.277093
+          ]
+        },
+        "runtime_ms": {
+          "median": 2.1622120000000002,
+          "min": 1.829376,
+          "max": 2.891597,
+          "runs": [
+            2.129985,
+            2.340277,
+            2.322874,
+            2.016534,
+            2.891597,
+            1.829376,
+            2.039976,
+            2.049028,
+            2.85218,
+            2.194439
+          ]
+        },
+        "max_rss_kib": {
+          "median": 4624,
+          "min": 4624,
+          "max": 4624,
+          "runs": [
+            4624,
+            4624,
+            4624
+          ]
+        },
+        "binary_bytes": 14552,
+        "verbosity": {
+          "bytes": 183,
+          "lines": 2,
+          "nonblank_lines": 2,
+          "tokens": 78
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/queue_ops.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/queue_ops"
+        ],
+        "compile_ms": {
+          "median": 384.206178,
+          "min": 378.180536,
+          "max": 386.307942,
+          "runs": [
+            378.180536,
+            386.307942,
+            384.206178
+          ]
+        },
+        "runtime_ms": {
+          "median": 2.2005535,
+          "min": 2.03987,
+          "max": 2.443681,
+          "runs": [
+            2.109229,
+            2.203845,
+            2.354335,
+            2.409403,
+            2.443681,
+            2.424029,
+            2.07308,
+            2.17739,
+            2.03987,
+            2.197262
+          ]
+        },
+        "max_rss_kib": {
+          "median": 4624,
+          "min": 4428,
+          "max": 4624,
+          "runs": [
+            4428,
+            4624,
+            4624
+          ]
+        },
+        "binary_bytes": 14560,
+        "verbosity": {
+          "bytes": 180,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 85
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/queue_ops.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/queue_ops"
+        ],
+        "compile_ms": {
+          "median": 102.8034,
+          "min": 99.83496,
+          "max": 102.83251,
+          "runs": [
+            102.83251,
+            99.83496,
+            102.8034
+          ]
+        },
+        "runtime_ms": {
+          "median": 1.7711454999999998,
+          "min": 1.44046,
+          "max": 1.949041,
+          "runs": [
+            1.85643,
+            1.780511,
+            1.76178,
+            1.745647,
+            1.848925,
+            1.949041,
+            1.64958,
+            1.44046,
+            1.830312,
+            1.49738
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3016,
+          "min": 2968,
+          "max": 3048,
+          "runs": [
+            2968,
+            3048,
+            3016
+          ]
+        },
+        "binary_bytes": 343832,
+        "verbosity": {
+          "bytes": 186,
+          "lines": 1,
+          "nonblank_lines": 1,
+          "tokens": 77
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/queue_ops",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/queue_ops.go"
+        ],
+        "compile_ms": {
+          "median": 106.462441,
+          "min": 99.30134,
+          "max": 112.078398,
+          "runs": [
+            112.078398,
+            106.462441,
+            99.30134
+          ]
+        },
+        "runtime_ms": {
+          "median": 3.093674,
+          "min": 2.757141,
+          "max": 3.50127,
+          "runs": [
+            3.074081,
+            2.953331,
+            3.092496,
+            3.175457,
+            3.182956,
+            3.094852,
+            2.757141,
+            3.016077,
+            3.50127,
+            3.43899
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3596,
+          "min": 3596,
+          "max": 3756,
+          "runs": [
+            3756,
+            3596,
+            3596
+          ]
+        },
+        "binary_bytes": 1589410,
+        "verbosity": {
+          "bytes": 157,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 72
+        }
+      }
+    },
+    "stack_ops": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/stack_ops.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/stack_ops"
+        ],
+        "compile_ms": {
+          "median": 379.341381,
+          "min": 373.327659,
+          "max": 382.204641,
+          "runs": [
+            382.204641,
+            379.341381,
+            373.327659
+          ]
+        },
+        "runtime_ms": {
+          "median": 2.1442725,
+          "min": 2.030411,
+          "max": 2.385785,
+          "runs": [
+            2.20216,
+            2.242123,
+            2.385785,
+            2.086385,
+            2.034289,
+            2.060326,
+            2.243524,
+            2.346281,
+            2.065426,
+            2.030411
+          ]
+        },
+        "max_rss_kib": {
+          "median": 4824,
+          "min": 4792,
+          "max": 4860,
+          "runs": [
+            4824,
+            4792,
+            4860
+          ]
+        },
+        "binary_bytes": 14552,
+        "verbosity": {
+          "bytes": 181,
+          "lines": 2,
+          "nonblank_lines": 2,
+          "tokens": 78
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/stack_ops.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/stack_ops"
+        ],
+        "compile_ms": {
+          "median": 371.725351,
+          "min": 346.261569,
+          "max": 389.062841,
+          "runs": [
+            346.261569,
+            371.725351,
+            389.062841
+          ]
+        },
+        "runtime_ms": {
+          "median": 2.2947135,
+          "min": 1.764758,
+          "max": 2.774272,
+          "runs": [
+            2.231791,
+            2.074648,
+            2.357636,
+            1.764758,
+            2.377098,
+            2.774272,
+            2.454894,
+            2.215092,
+            2.221546,
+            2.426861
+          ]
+        },
+        "max_rss_kib": {
+          "median": 4824,
+          "min": 4664,
+          "max": 4856,
+          "runs": [
+            4856,
+            4664,
+            4824
+          ]
+        },
+        "binary_bytes": 14560,
+        "verbosity": {
+          "bytes": 178,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 85
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/stack_ops.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/stack_ops"
+        ],
+        "compile_ms": {
+          "median": 97.6341,
+          "min": 93.227003,
+          "max": 100.251768,
+          "runs": [
+            100.251768,
+            97.6341,
+            93.227003
+          ]
+        },
+        "runtime_ms": {
+          "median": 1.635831,
+          "min": 1.45698,
+          "max": 1.787607,
+          "runs": [
+            1.628603,
+            1.570034,
+            1.636821,
+            1.736894,
+            1.650927,
+            1.634841,
+            1.45698,
+            1.787607,
+            1.532737,
+            1.727623
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2988,
+          "min": 2968,
+          "max": 3000,
+          "runs": [
+            3000,
+            2968,
+            2988
+          ]
+        },
+        "binary_bytes": 343704,
+        "verbosity": {
+          "bytes": 138,
+          "lines": 1,
+          "nonblank_lines": 1,
+          "tokens": 70
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/stack_ops",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/stack_ops.go"
+        ],
+        "compile_ms": {
+          "median": 103.827849,
+          "min": 103.699777,
+          "max": 107.670703,
+          "runs": [
+            103.827849,
+            103.699777,
+            107.670703
+          ]
+        },
+        "runtime_ms": {
+          "median": 3.0475255,
+          "min": 2.914985,
+          "max": 3.560471,
+          "runs": [
+            3.072062,
+            3.232756,
+            3.017054,
+            3.127693,
+            3.022989,
+            2.968588,
+            3.15452,
+            3.560471,
+            2.914985,
+            3.007545
+          ]
+        },
+        "max_rss_kib": {
+          "median": 3596,
+          "min": 3596,
+          "max": 3756,
+          "runs": [
+            3756,
+            3596,
+            3596
+          ]
+        },
+        "binary_bytes": 1589410,
+        "verbosity": {
+          "bytes": 183,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 97
+        }
+      }
+    },
+    "priority_queue_ops": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/priority_queue_ops.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/priority_queue_ops"
+        ],
+        "compile_ms": {
+          "median": 410.974522,
+          "min": 391.094002,
+          "max": 545.755414,
+          "runs": [
+            391.094002,
+            410.974522,
+            545.755414
+          ]
+        },
+        "runtime_ms": {
+          "median": 15.7397555,
+          "min": 11.777771,
+          "max": 19.326132,
+          "runs": [
+            11.84007,
+            12.128471,
+            19.009786,
+            17.5513,
+            11.777771,
+            13.012173,
+            18.932113,
+            17.115674,
+            19.326132,
+            14.363837
+          ]
+        },
+        "max_rss_kib": {
+          "median": 4524,
+          "min": 4524,
+          "max": 4572,
+          "runs": [
+            4524,
+            4572,
+            4524
+          ]
+        },
+        "binary_bytes": 14552,
+        "verbosity": {
+          "bytes": 199,
+          "lines": 2,
+          "nonblank_lines": 2,
+          "tokens": 78
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/priority_queue_ops.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/priority_queue_ops"
+        ],
+        "compile_ms": {
+          "median": 393.346862,
+          "min": 389.033341,
+          "max": 418.714673,
+          "runs": [
+            389.033341,
+            393.346862,
+            418.714673
+          ]
+        },
+        "runtime_ms": {
+          "median": 13.185875500000002,
+          "min": 10.747218,
+          "max": 19.226659,
+          "runs": [
+            19.226659,
+            10.747218,
+            14.694086,
+            16.482272,
+            11.852407,
+            11.833717,
+            12.683797,
+            13.343189,
+            13.028562,
+            16.366187
+          ]
+        },
+        "max_rss_kib": {
+          "median": 4560,
+          "min": 4516,
+          "max": 4560,
+          "runs": [
+            4516,
+            4560,
+            4560
+          ]
+        },
+        "binary_bytes": 14560,
+        "verbosity": {
+          "bytes": 187,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 85
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/priority_queue_ops.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/priority_queue_ops"
+        ],
+        "compile_ms": {
+          "median": 109.093777,
+          "min": 104.437447,
+          "max": 115.355418,
+          "runs": [
+            115.355418,
+            109.093777,
+            104.437447
+          ]
+        },
+        "runtime_ms": {
+          "median": 10.8201645,
+          "min": 8.725559,
+          "max": 11.517107,
+          "runs": [
+            8.725559,
+            11.015839,
+            9.712179,
+            10.102992,
+            9.343357,
+            11.34241,
+            11.096481,
+            10.934871,
+            10.705458,
+            11.517107
+          ]
+        },
+        "max_rss_kib": {
+          "median": 2988,
+          "min": 2984,
+          "max": 3016,
+          "runs": [
+            2984,
+            3016,
+            2988
+          ]
+        },
+        "binary_bytes": 343784,
+        "verbosity": {
+          "bytes": 179,
+          "lines": 1,
+          "nonblank_lines": 1,
+          "tokens": 77
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/priority_queue_ops",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/priority_queue_ops.go"
+        ],
+        "compile_ms": {
+          "median": 101.748084,
+          "min": 98.729551,
+          "max": 103.159688,
+          "runs": [
+            98.729551,
+            103.159688,
+            101.748084
+          ]
+        },
+        "runtime_ms": {
+          "median": 49.2035185,
+          "min": 45.666608,
+          "max": 54.498629,
+          "runs": [
+            47.330775,
+            48.938008,
+            45.666608,
+            51.99779,
+            51.080106,
+            52.548419,
+            48.275081,
+            54.498629,
+            47.42088,
+            49.469029
+          ]
+        },
+        "max_rss_kib": {
+          "median": 8472,
+          "min": 8152,
+          "max": 9008,
+          "runs": [
+            9008,
+            8472,
+            8152
+          ]
+        },
+        "binary_bytes": 1593506,
+        "verbosity": {
+          "bytes": 432,
+          "lines": 9,
+          "nonblank_lines": 9,
+          "tokens": 239
+        }
+      }
+    },
+    "queue_ops_long": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/queue_ops_long.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/queue_ops_long"
+        ],
+        "compile_ms": {
+          "median": 395.848956,
+          "min": 385.621836,
+          "max": 410.697654,
+          "runs": [
+            410.697654,
+            395.848956,
+            385.621836
+          ]
+        },
+        "runtime_ms": {
+          "median": 10.3825275,
+          "min": 8.971414,
+          "max": 13.346484,
+          "runs": [
+            9.167536,
+            11.431811,
+            8.971414,
+            10.405824,
+            11.511244,
+            13.346484,
+            9.48508,
+            10.359231,
+            12.800019,
+            9.727853
+          ]
+        },
+        "max_rss_kib": {
+          "median": 11712,
+          "min": 11640,
+          "max": 11796,
+          "runs": [
+            11640,
+            11796,
+            11712
+          ]
+        },
+        "binary_bytes": 14552,
+        "verbosity": {
+          "bytes": 184,
+          "lines": 2,
+          "nonblank_lines": 2,
+          "tokens": 78
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/queue_ops_long.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/queue_ops_long"
+        ],
+        "compile_ms": {
+          "median": 401.929017,
+          "min": 387.37485,
+          "max": 407.756278,
+          "runs": [
+            387.37485,
+            401.929017,
+            407.756278
+          ]
+        },
+        "runtime_ms": {
+          "median": 10.732402,
+          "min": 10.05192,
+          "max": 11.869122,
+          "runs": [
+            10.849181,
+            11.591878,
+            10.05192,
+            11.281846,
+            10.667691,
+            10.189957,
+            11.869122,
+            10.699012,
+            10.308035,
+            10.765792
+          ]
+        },
+        "max_rss_kib": {
+          "median": 11856,
+          "min": 11788,
+          "max": 11984,
+          "runs": [
+            11984,
+            11856,
+            11788
+          ]
+        },
+        "binary_bytes": 14560,
+        "verbosity": {
+          "bytes": 181,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 85
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/queue_ops_long.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/queue_ops_long"
+        ],
+        "compile_ms": {
+          "median": 104.387994,
+          "min": 101.053452,
+          "max": 109.765683,
+          "runs": [
+            101.053452,
+            109.765683,
+            104.387994
+          ]
+        },
+        "runtime_ms": {
+          "median": 9.6287085,
+          "min": 9.097698,
+          "max": 10.770762,
+          "runs": [
+            9.413117,
+            9.784887,
+            10.083084,
+            9.635536,
+            9.621881,
+            9.097698,
+            10.770762,
+            9.459858,
+            9.235888,
+            10.629285
+          ]
+        },
+        "max_rss_kib": {
+          "median": 10040,
+          "min": 10028,
+          "max": 10084,
+          "runs": [
+            10028,
+            10040,
+            10084
+          ]
+        },
+        "binary_bytes": 343832,
+        "verbosity": {
+          "bytes": 187,
+          "lines": 1,
+          "nonblank_lines": 1,
+          "tokens": 77
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/queue_ops_long",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/queue_ops_long.go"
+        ],
+        "compile_ms": {
+          "median": 102.374788,
+          "min": 99.604251,
+          "max": 108.977935,
+          "runs": [
+            102.374788,
+            108.977935,
+            99.604251
+          ]
+        },
+        "runtime_ms": {
+          "median": 14.121049,
+          "min": 12.233253,
+          "max": 15.583131,
+          "runs": [
+            14.024504,
+            13.044344,
+            12.545335,
+            15.333831,
+            15.583131,
+            14.217594,
+            12.297186,
+            14.799402,
+            15.036624,
+            12.233253
+          ]
+        },
+        "max_rss_kib": {
+          "median": 18180,
+          "min": 18180,
+          "max": 18340,
+          "runs": [
+            18180,
+            18340,
+            18180
+          ]
+        },
+        "binary_bytes": 1589410,
+        "verbosity": {
+          "bytes": 159,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 72
+        }
+      }
+    },
+    "hash_set_long": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/hash_set_long.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/hash_set_long"
+        ],
+        "compile_ms": {
+          "median": 396.82492,
+          "min": 392.872228,
+          "max": 412.80233,
+          "runs": [
+            412.80233,
+            392.872228,
+            396.82492
+          ]
+        },
+        "runtime_ms": {
+          "median": 138.455506,
+          "min": 136.12546,
+          "max": 149.544375,
+          "runs": [
+            138.54949,
+            136.881219,
+            136.12546,
+            145.37117,
+            149.544375,
+            144.962517,
+            138.361522,
+            138.901696,
+            137.3447,
+            136.341
+          ]
+        },
+        "max_rss_kib": {
+          "median": 89044,
+          "min": 89028,
+          "max": 89108,
+          "runs": [
+            89108,
+            89044,
+            89028
+          ]
+        },
+        "binary_bytes": 14480,
+        "verbosity": {
+          "bytes": 190,
+          "lines": 2,
+          "nonblank_lines": 2,
+          "tokens": 84
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/hash_set_long.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/hash_set_long"
+        ],
+        "compile_ms": {
+          "median": 379.654735,
+          "min": 375.270855,
+          "max": 383.866697,
+          "runs": [
+            379.654735,
+            383.866697,
+            375.270855
+          ]
+        },
+        "runtime_ms": {
+          "median": 136.8980045,
+          "min": 131.911404,
+          "max": 145.508049,
+          "runs": [
+            135.784534,
+            145.508049,
+            141.399931,
+            136.645184,
+            131.911404,
+            134.062262,
+            139.263688,
+            133.911905,
+            137.150825,
+            137.399808
+          ]
+        },
+        "max_rss_kib": {
+          "median": 89112,
+          "min": 89104,
+          "max": 89208,
+          "runs": [
+            89104,
+            89112,
+            89208
+          ]
+        },
+        "binary_bytes": 14560,
+        "verbosity": {
+          "bytes": 196,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 82
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/hash_set_long.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/hash_set_long"
+        ],
+        "compile_ms": {
+          "median": 182.974733,
+          "min": 181.175457,
+          "max": 186.833669,
+          "runs": [
+            186.833669,
+            182.974733,
+            181.175457
+          ]
+        },
+        "runtime_ms": {
+          "median": 329.5308885,
+          "min": 319.584406,
+          "max": 364.949015,
+          "runs": [
+            364.949015,
+            320.576344,
+            332.491128,
+            329.145304,
+            331.440536,
+            319.584406,
+            327.614862,
+            321.404948,
+            330.554919,
+            329.916473
+          ]
+        },
+        "max_rss_kib": {
+          "median": 33016,
+          "min": 32892,
+          "max": 33180,
+          "runs": [
+            32892,
+            33016,
+            33180
+          ]
+        },
+        "binary_bytes": 355024,
+        "verbosity": {
+          "bytes": 181,
+          "lines": 1,
+          "nonblank_lines": 1,
+          "tokens": 79
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/hash_set_long",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/hash_set_long.go"
+        ],
+        "compile_ms": {
+          "median": 106.114854,
+          "min": 104.034821,
+          "max": 107.81233,
+          "runs": [
+            107.81233,
+            104.034821,
+            106.114854
+          ]
+        },
+        "runtime_ms": {
+          "median": 490.6103815,
+          "min": 484.429604,
+          "max": 507.599598,
+          "runs": [
+            497.758921,
+            496.854301,
+            493.113095,
+            507.599598,
+            487.274182,
+            484.429604,
+            484.79848,
+            486.47574,
+            494.458365,
+            488.107668
+          ]
+        },
+        "max_rss_kib": {
+          "median": 76708,
+          "min": 76708,
+          "max": 76868,
+          "runs": [
+            76708,
+            76868,
+            76708
+          ]
+        },
+        "binary_bytes": 1589410,
+        "verbosity": {
+          "bytes": 179,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 88
+        }
+      }
+    },
+    "priority_queue_ops_long": {
+      "strut": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/Repositories/strut-labs/strut/build/strut",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/priority_queue_ops_long.p",
+          "--release",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/strut/priority_queue_ops_long"
+        ],
+        "compile_ms": {
+          "median": 372.268632,
+          "min": 364.797928,
+          "max": 393.295485,
+          "runs": [
+            393.295485,
+            372.268632,
+            364.797928
+          ]
+        },
+        "runtime_ms": {
+          "median": 97.508892,
+          "min": 93.507997,
+          "max": 104.028155,
+          "runs": [
+            104.028155,
+            98.012454,
+            97.731607,
+            93.539907,
+            94.521611,
+            98.873505,
+            93.507997,
+            95.396312,
+            97.286177,
+            98.781703
+          ]
+        },
+        "max_rss_kib": {
+          "median": 11752,
+          "min": 11680,
+          "max": 11764,
+          "runs": [
+            11752,
+            11764,
+            11680
+          ]
+        },
+        "binary_bytes": 14552,
+        "verbosity": {
+          "bytes": 200,
+          "lines": 2,
+          "nonblank_lines": 2,
+          "tokens": 78
+        }
+      },
+      "cpp": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/g++",
+          "-std=c++20",
+          "-O2",
+          "-DNDEBUG",
+          "-pthread",
+          "-s",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/cpp/priority_queue_ops_long.cpp",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/cpp/priority_queue_ops_long"
+        ],
+        "compile_ms": {
+          "median": 355.094507,
+          "min": 348.498648,
+          "max": 368.173543,
+          "runs": [
+            368.173543,
+            348.498648,
+            355.094507
+          ]
+        },
+        "runtime_ms": {
+          "median": 98.54209,
+          "min": 94.183383,
+          "max": 112.02046,
+          "runs": [
+            100.949084,
+            95.908213,
+            112.02046,
+            103.458792,
+            94.183383,
+            97.906765,
+            97.056654,
+            99.192978,
+            99.177415,
+            95.622293
+          ]
+        },
+        "max_rss_kib": {
+          "median": 11704,
+          "min": 11672,
+          "max": 11752,
+          "runs": [
+            11704,
+            11672,
+            11752
+          ]
+        },
+        "binary_bytes": 14560,
+        "verbosity": {
+          "bytes": 188,
+          "lines": 3,
+          "nonblank_lines": 3,
+          "tokens": 85
+        }
+      },
+      "rust": {
+        "status": "ok",
+        "compile_command": [
+          "/home/nick/.cargo/bin/rustc",
+          "-C",
+          "opt-level=2",
+          "-C",
+          "strip=symbols",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/rust/priority_queue_ops_long.rs",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/rust/priority_queue_ops_long"
+        ],
+        "compile_ms": {
+          "median": 104.018819,
+          "min": 100.626866,
+          "max": 104.576584,
+          "runs": [
+            104.018819,
+            100.626866,
+            104.576584
+          ]
+        },
+        "runtime_ms": {
+          "median": 72.5125855,
+          "min": 69.578862,
+          "max": 74.98288,
+          "runs": [
+            74.98288,
+            74.781019,
+            70.633051,
+            73.564056,
+            70.507346,
+            70.846653,
+            69.578862,
+            73.094248,
+            71.930923,
+            74.692536
+          ]
+        },
+        "max_rss_kib": {
+          "median": 9936,
+          "min": 9880,
+          "max": 10036,
+          "runs": [
+            9880,
+            9936,
+            10036
+          ]
+        },
+        "binary_bytes": 343784,
+        "verbosity": {
+          "bytes": 180,
+          "lines": 1,
+          "nonblank_lines": 1,
+          "tokens": 77
+        }
+      },
+      "go": {
+        "status": "ok",
+        "compile_command": [
+          "/usr/bin/go",
+          "build",
+          "-ldflags=-s -w",
+          "-o",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/build/go/priority_queue_ops_long",
+          "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/go/priority_queue_ops_long.go"
+        ],
+        "compile_ms": {
+          "median": 97.696667,
+          "min": 95.140706,
+          "max": 98.143033,
+          "runs": [
+            95.140706,
+            97.696667,
+            98.143033
+          ]
+        },
+        "runtime_ms": {
+          "median": 483.90686100000005,
+          "min": 456.796993,
+          "max": 507.776455,
+          "runs": [
+            491.854577,
+            467.088106,
+            469.294617,
+            495.683252,
+            456.796993,
+            471.747631,
+            507.776455,
+            497.590375,
+            480.24094,
+            487.572782
+          ]
+        },
+        "max_rss_kib": {
+          "median": 68840,
+          "min": 68692,
+          "max": 69020,
+          "runs": [
+            68840,
+            68692,
+            69020
+          ]
+        },
+        "binary_bytes": 1593506,
+        "verbosity": {
+          "bytes": 433,
+          "lines": 9,
+          "nonblank_lines": 9,
+          "tokens": 239
+        }
+      }
+    }
+  }
+}

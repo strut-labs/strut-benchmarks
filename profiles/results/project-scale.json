@@ -1,0 +1,29 @@
+{
+  "10": {
+    "source_files": 10,
+    "cold_ms": 353.858282,
+    "noop_ms": 3.27975,
+    "touched_leaf_ms": 352.582812,
+    "cold_exit": 0,
+    "noop_exit": 0,
+    "touched_exit": 0
+  },
+  "100": {
+    "source_files": 100,
+    "cold_ms": 362.1345,
+    "noop_ms": 7.893168,
+    "touched_leaf_ms": 381.635565,
+    "cold_exit": 0,
+    "noop_exit": 0,
+    "touched_exit": 0
+  },
+  "500": {
+    "source_files": 500,
+    "cold_ms": 431.207204,
+    "noop_ms": 22.438048,
+    "touched_leaf_ms": 409.710842,
+    "cold_exit": 0,
+    "noop_exit": 0,
+    "touched_exit": 0
+  }
+}

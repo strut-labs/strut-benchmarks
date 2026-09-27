@@ -1,5 +1,5 @@
 function main() -> void {
-    int* p := ptr(7);
+    int* p := new(7);
     int_64 total := 0;
     for (int i := 0; i < 50000000; i++) {
         int* q := p;

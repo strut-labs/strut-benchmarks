@@ -1,0 +1,32 @@
+{
+  "cold": {
+    "ms": 394.981157,
+    "stdout": "project /tmp/strut-incremental-q1md9vj6\nrebuild main.p\n  - object output is missing\n  - object build metadata is missing\n",
+    "stderr": "",
+    "exit": 0
+  },
+  "noop": {
+    "ms": 3.51585,
+    "stdout": "project /tmp/strut-incremental-q1md9vj6\nreuse .strut/obj/native/debug/main.o\noutput up to date /tmp/strut-incremental-q1md9vj6/main\n",
+    "stderr": "",
+    "exit": 0
+  },
+  "source_touched": {
+    "ms": 388.573696,
+    "stdout": "project /tmp/strut-incremental-q1md9vj6\nrebuild main.p\n  - dependency changed: main.p\n",
+    "stderr": "",
+    "exit": 0
+  },
+  "header_touched": {
+    "ms": 386.792419,
+    "stdout": "project /tmp/strut-incremental-q1md9vj6\nrebuild main.p\n  - dependency changed: common.h\n",
+    "stderr": "",
+    "exit": 0
+  },
+  "object_files": [
+    ".strut/obj/native/debug/main.o"
+  ],
+  "info_files": [
+    ".strut/info/native/debug/main.info.json"
+  ]
+}

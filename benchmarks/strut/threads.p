@@ -8,10 +8,10 @@ function work(int offset, int* result) -> void {
 }
 
 function main() -> void : ThreadError {
-    a := ptr(0);
-    b := ptr(0);
-    c := ptr(0);
-    d := ptr(0);
+    a := new(0);
+    b := new(0);
+    c := new(0);
+    d := new(0);
 
     ta := thread(() => { work(0, a); });
     tb := thread(() => { work(1, b); });

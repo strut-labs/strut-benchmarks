@@ -1,0 +1,160 @@
+{
+  "source": "/home/nick/Repositories/strut-labs/strut-benchmarks/benchmarks/strut/hello.p",
+  "runs": 10,
+  "environment": {
+    "hostname": "nick-NUC12SNKi72",
+    "platform": "Linux-7.0.0-29-generic-x86_64-with-glibc2.43",
+    "machine": "x86_64",
+    "cpu": "12th Gen Intel(R) Core(TM) i7-12700H",
+    "strut": "strut 0.0.2",
+    "cxx": "c++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+  },
+  "full_compile_ms": [
+    307.826105,
+    311.684748,
+    304.140401,
+    312.617999,
+    316.240657,
+    311.595283,
+    298.580707,
+    295.06226,
+    279.276556,
+    279.954672
+  ],
+  "emit_cpp_ms": [
+    2.772663,
+    1.875975,
+    1.693839,
+    1.903095,
+    1.57476,
+    1.405134,
+    1.790147,
+    1.878415,
+    1.840284,
+    1.640371
+  ],
+  "host_direct_compile_ms": [
+    287.663039,
+    287.000133,
+    283.923276,
+    287.984406,
+    284.715955,
+    277.145263,
+    284.651627,
+    297.274915,
+    289.021256,
+    277.744695
+  ],
+  "project_host_object_ms": [
+    241.261499,
+    225.100815,
+    234.643147,
+    234.877326,
+    227.987988,
+    237.034502,
+    226.97715,
+    226.967113,
+    226.59405,
+    233.072193
+  ],
+  "project_host_link_ms": [
+    97.04359,
+    107.755616,
+    95.341295,
+    98.358131,
+    100.541316,
+    102.014903,
+    96.565622,
+    97.363102,
+    99.959419,
+    103.534562
+  ],
+  "strut_phase_samples": [
+    {
+      "load_parse_ms": 0.143,
+      "semantic_ms": 0.226,
+      "ir_ms": 0.017,
+      "native_backend_ms": 304.595,
+      "total_ms": 305.032
+    },
+    {
+      "load_parse_ms": 0.12,
+      "semantic_ms": 0.194,
+      "ir_ms": 0.019,
+      "native_backend_ms": 308.673,
+      "total_ms": 309.053
+    },
+    {
+      "load_parse_ms": 0.11,
+      "semantic_ms": 0.171,
+      "ir_ms": 0.014,
+      "native_backend_ms": 301.476,
+      "total_ms": 301.808
+    },
+    {
+      "load_parse_ms": 0.142,
+      "semantic_ms": 0.212,
+      "ir_ms": 0.017,
+      "native_backend_ms": 309.374,
+      "total_ms": 309.8
+    },
+    {
+      "load_parse_ms": 0.141,
+      "semantic_ms": 0.17,
+      "ir_ms": 0.017,
+      "native_backend_ms": 313.34,
+      "total_ms": 313.705
+    },
+    {
+      "load_parse_ms": 0.16,
+      "semantic_ms": 0.267,
+      "ir_ms": 0.029,
+      "native_backend_ms": 308.397,
+      "total_ms": 308.926
+    },
+    {
+      "load_parse_ms": 0.161,
+      "semantic_ms": 0.537,
+      "ir_ms": 0.022,
+      "native_backend_ms": 295.69,
+      "total_ms": 296.478
+    },
+    {
+      "load_parse_ms": 0.143,
+      "semantic_ms": 0.246,
+      "ir_ms": 0.017,
+      "native_backend_ms": 292.054,
+      "total_ms": 292.517
+    },
+    {
+      "load_parse_ms": 0.104,
+      "semantic_ms": 0.157,
+      "ir_ms": 0.017,
+      "native_backend_ms": 275.896,
+      "total_ms": 276.232
+    },
+    {
+      "load_parse_ms": 0.135,
+      "semantic_ms": 0.184,
+      "ir_ms": 0.015,
+      "native_backend_ms": 276.845,
+      "total_ms": 277.212
+    }
+  ],
+  "generated_cpp_bytes": 1986,
+  "generated_cpp_lines": 46,
+  "medians": {
+    "full_compile_ms": 305.983253,
+    "emit_cpp_ms": 1.8152154999999999,
+    "host_direct_compile_ms": 285.858044,
+    "project_host_object_ms": 230.5300905,
+    "project_host_link_ms": 99.15877499999999,
+    "phases": {
+      "load_parse_ms": 0.1415,
+      "semantic_ms": 0.203,
+      "ir_ms": 0.017,
+      "native_backend_ms": 303.0355,
+      "total_ms": 303.41999999999996
+    }
+  }
+}
