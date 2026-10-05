@@ -1,0 +1,11 @@
+Endpoint parity (node B -> node A, over the network)
+implementation | /plaintext status ct len | /json status ct len | /json body
+strut          | 200 text/plain; charset=utf-8 13 | 200 application/json 32 | pretty-printed (2-space indent + newlines)
+go             | 200 text/plain 13                | 200 application/json 27 | {"message":"Hello, World!"}
+rust           | 200 text/plain; charset=utf-8 13 | 200 application/json 27 | {"message":"Hello, World!"}
+
+Caveat: Strut's idiomatic http_json_response pretty-prints, so its /json body is
+32 bytes vs 27 bytes for Go/Rust. This is a Strut JSON-stack characteristic, not
+an HTTP-framing difference, and is recorded as a fairness caveat. /plaintext is
+byte-identical in size across all three (13 bytes; Content-Type differs only by
+the charset parameter for Go).
