@@ -50,3 +50,19 @@ Alternating uninstrumented A/B:
   -Werror, Clang -Werror, ASan/UBSan) plus regressions 289/289 both modes
   (incl. a new route-semantics fixture verifying static/:param/multi-param/
   trailing-slash-normalization/mismatch matching the original getline semantics).
+
+## Corrected N=5 alternating A/B (parameterized c/t, alternating start order)
+Same node session (colder than the earlier fast session; many kill/restart cycles
+-> wide restart variance). /plaintext:
+
+| c | BASE n=5 med (min-max) | CAND n=5 med (min-max) | delta |
+|---|---|---|---|
+| 1  | 4547 (3687-4845)   | 4371 (2007-4761)   | -3.9% (outlier-heavy) |
+| 10 | 12645 (12195-13203)| 12757 (9434-13057) | +0.9% |
+| 50 | 19680 (17158-21004)| 19710 (13398-19745)| +0.2% |
+
+Classification: performance NEUTRAL-to-slightly-positive on the uninstrumented
+benchmark within restart noise; the value of beed5ba is the structural removal
+of stringstream/temporary-segment allocation opportunities from static route
+matching (by construction), not a throughput win. RETAINED on that basis.
+Retracted: the earlier +2.5-4% claim.
