@@ -2,7 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"os"
+	"runtime"
 )
 
 func plaintext(w http.ResponseWriter, r *http.Request) {
@@ -17,6 +20,7 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	fmt.Fprintf(os.Stderr, "config gomaxprocs=%d numcpu=%d\n", runtime.GOMAXPROCS(0), runtime.NumCPU())
 	mux := http.NewServeMux()
 	mux.HandleFunc("/plaintext", plaintext)
 	mux.HandleFunc("/json", jsonHandler)

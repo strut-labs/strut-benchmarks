@@ -11,6 +11,10 @@ async fn json_route() -> Json<Value> {
 
 #[tokio::main]
 async fn main() {
+    eprintln!(
+        "config available_parallelism={:?}",
+        std::thread::available_parallelism()
+    );
     let app = Router::new()
         .route("/plaintext", get(plaintext))
         .route("/json", get(json_route));
