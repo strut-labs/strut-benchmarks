@@ -42,3 +42,14 @@ slow consumer -> 200 OK, NO reset, sender throttled by TCP backpressure
 (~10 s), body_buf peak ~138 KiB, keep-alive reuse clean. A default-limits
 server correctly returns 413 for a 4 MiB body. Chunked incremental verified
 (200 OK, echo across a 1 s upload pause).
+
+## R7b-1 close (9fa5dff) — request side done
+- Early-return handlers: POST /partial reads 32 KiB of a 1 MiB body and returns
+  early -> 200 OK, then the connection is CLOSED after the response; a
+  same-socket second request sees EOF (unread body bytes are never interpreted
+  as the next request); fresh GET works.
+- Deterministic chunked proof: chunk 1 sent, chunk 2 withheld; handler consumed
+  chunk 1 (marker file) at t=0.02 s BEFORE chunk 2 was sent -> genuine chunked
+  incremental transport.
+- Byte-at-a-time chunked framing (size line / payload / CRLF / zero chunk all
+  split across recv) decodes correctly.
