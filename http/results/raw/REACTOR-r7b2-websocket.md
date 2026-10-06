@@ -29,3 +29,12 @@ remains healthy (~16k plaintext c=50). Next: R8 reactor-native TLS.
 ## Ledger
 ~1.2k original -> ~9k TCP_NODELAY -> ~11-12k reactor -> ~16.8k writev reactor
 -> R7a 16.8k -> R7b 16k (variance). Perf medians to be re-recorded at R8.5.
+
+## Evidence classification (keep accurate)
+- The permanent regression fixture (`reactor-websocket-test`, STRUT_HTTP_REACTOR=1)
+  proves only: a WebSocket route coexists with buffered HTTP on the reactor path,
+  the server starts, /plaintext is served, stop()/join works.
+- The stronger WebSocket claims (101 handshake, masked text echo, close
+  handshake, idle-WebSocket survival, and the 40-idle-WebSocket -> 6-thread
+  bounded proof) come from the focused/hand-rolled client and Linode
+  certification tests recorded above. Do not attribute those to the fixture.
