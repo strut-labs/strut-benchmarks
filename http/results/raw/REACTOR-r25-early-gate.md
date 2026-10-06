@@ -74,3 +74,11 @@ Proceeding to R6+.
 
 Go/Rust remain frozen; current Rust ~35k remains generator-limited (wrk
 saturates ~37k). Generator headroom work deferred to R14.
+---
+
+CORRECTION (see REACTOR-r65-utilisation.md): the ~43% CPU / ~37 us-per-request
+figures above were a `pidstat` sampling artifact. Steady-state CPU at c=50 is
+~95% (saturated). R6.5 then coalesced head+body into one vectored write, taking
+c=50 from ~12.3k to ~16.9k req/s (+37%). The gate's structural conclusions
+(thread count fixed, slow clients do not starve the worker, no per-request CPU
+inflation with concurrency) stand; the absolute CPU/efficiency claim does not.
