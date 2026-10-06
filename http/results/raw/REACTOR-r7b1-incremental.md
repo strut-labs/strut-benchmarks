@@ -31,3 +31,14 @@ buffers fill; the memory/isolation properties hold, reconnect retry semantics
 are unchanged. Read-timeout and disconnect behavior otherwise preserved.
 Body/limits, malformed framing, and keep-alive leftover reuse preserved via the
 existing request_body machinery.
+
+## UPDATE — upload reset resolved (R7b-1 fix, f49d7f8)
+Root cause: the reactor loop still used the write-only inline arm
+(modify(handle,false,true)), so read interest was never stripped when the
+bounded body queue filled; body_buf grew unbounded and a peer FIN aborted a
+valid upload. Fixing the loop to call reactor_arm_streams (read+write
+interests) enforces the cap. Verified: valid 4 MiB Content-Length upload to a
+slow consumer -> 200 OK, NO reset, sender throttled by TCP backpressure
+(~10 s), body_buf peak ~138 KiB, keep-alive reuse clean. A default-limits
+server correctly returns 413 for a 4 MiB body. Chunked incremental verified
+(200 OK, echo across a 1 s upload pause).
