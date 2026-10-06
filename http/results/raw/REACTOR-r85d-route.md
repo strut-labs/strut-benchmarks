@@ -32,3 +32,21 @@ Alternating uninstrumented A/B:
 - response serialization via std::ostringstream.
 - cancellation source make_shared (2 allocs/request; hard to remove without a
   public token/API change - deprioritized).
+
+## EVIDENCE CORRECTION (per review)
+- The "C50/B50" confirmation accidentally used a helper hard-coded to
+  `wrk -t1 -c1`; those samples were c=1 and are WITHDRAWN as c=50 evidence.
+- The B-C-B-C-B c=50 sequence had N=3 BASE / N=2 CAND and is SUGGESTIVE ONLY,
+  not an authoritative +4%.
+- Exact heap-allocation reduction was NOT measured; the "~2N allocations/request
+  removed" figure is WITHDRAWN. Established by construction only: the old
+  matcher created 2 std::stringstream objects + temporary segment std::strings
+  per match; the new static path performs no explicit dynamic string
+  materialization. Allocation delta is recorded as UNMEASURED pending a reliable
+  interposer dump.
+- beed5ba classification: code-inspection-guided optimization (not
+  profiler-ranked largest allocation source).
+- Full strict certification now demonstrated: CTest 16/16 x4 (normal, GCC
+  -Werror, Clang -Werror, ASan/UBSan) plus regressions 289/289 both modes
+  (incl. a new route-semantics fixture verifying static/:param/multi-param/
+  trailing-slash-normalization/mismatch matching the original getline semantics).
