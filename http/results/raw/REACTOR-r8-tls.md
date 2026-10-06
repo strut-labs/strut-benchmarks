@@ -23,3 +23,16 @@ codegen pass, git diff --check clean. Plaintext reactor path unchanged (no TLS
 cost when TLS unused).
 
 Next: R8.5 early-R13 Linux request hot-path performance campaign.
+
+## R8 focused certification (local) - all gaps closed
+- invalid TLS (plain HTTP to TLS port, garbage bytes): closed immediately (~0ms,
+  fixed in follow-up), normal TLS unaffected
+- disconnect mid-handshake (partial ClientHello) and connect+no-data: safe, recovered
+- handshake timeout: a no-data handshake is closed by the server (idle deadline)
+- partial SSL_write: 4 MiB encrypted response to a stalled reader; concurrent
+  normal TLS requests all 200 OK
+- partial SSL_read / slow upload: request_stream over TLS, 2 bytes then 1s pause,
+  then remainder -> 200 OK
+- WSS: 101 upgrade + text echo through the reactor TLS transport
+- Reactor stop()/drain with a TLS server: STOP_OK, joins cleanly
+- reactor thread count bounded throughout
