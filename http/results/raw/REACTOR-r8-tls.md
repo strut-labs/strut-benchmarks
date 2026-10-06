@@ -36,3 +36,13 @@ Next: R8.5 early-R13 Linux request hot-path performance campaign.
 - WSS: 101 upgrade + text echo through the reactor TLS transport
 - Reactor stop()/drain with a TLS server: STOP_OK, joins cleanly
 - reactor thread count bounded throughout
+
+## R8 COMPLETE (final)
+- Windows SSL_set_fd portability fix (417e197): static_cast<int> mirrors legacy
+  TLS path; MSVC C4244 resolved.
+- Hosted five-platform wall GREEN (run with 417e197, macOS rerun after a
+  documented transient PTY-owner certification flake): linux-x64-gcc,
+  linux-arm64-gcc, linux-x64-clang, macos-arm64-appleclang, windows-x64-msvc.
+- Plaintext A/B (REACTOR-r8-ab.md): no material post-R8 regression; steady
+  POST c=50 ~16.0-16.2k equals PRE and the historical writev era; the ~15.1k
+  baseline figure was restart skew.
