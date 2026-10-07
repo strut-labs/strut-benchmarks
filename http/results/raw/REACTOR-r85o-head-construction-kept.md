@@ -1,19 +1,24 @@
-# R8.5-O — span-based request-head construction (drop fields vector + header string temporaries): KEPT
+# R8.5-O — direct/range-guided request-head construction (drop fields vector + header string temporaries): KEPT
 
 The Rust-inspired request/header architecture experiment (see design note
-REACTOR-rust-gap-design-note.md). Lazy public materialization of `http_request.headers`
-is NOT possible without changing the public member type (`std::unordered_map<strut_string,
-strut_string>` is a plain member the generated code accesses directly) -> documented
-blocker. Instead removed a whole redundant layer inside the existing representation:
+REACTOR-rust-gap-design-note.md). Terminology: this is **range-guided/direct
+construction into the existing OWNED header representation** — NOT yet Hyper-style
+borrowed/spanned header storage (final headers are still owned `std::string` values in
+`unordered_map<strut_string,strut_string>`, and token validation still builds one
+temporary name string). Lazy public materialization is NOT implemented: it would require
+a runtime/codegen representation change (a custom map-compatible HTTP-header type /
+proxy behind the language-level `req.headers[...]` API) — a larger future architectural
+opportunity, not impossible.
 
+What O actually does:
 - DROP `std::vector<strut_http_header_field> fields` from internal strut_http_request_head
   (was only used for the duplicate check + storage; nothing reads it after parse).
 - Duplicate detection now uses the public headers map itself (`find`).
-- Per-header parse builds name/lower/value directly from spans of the parser's stable
+- Per-header parse builds name/lower/value directly from ranges of the parser's stable
   head copy: in-place lowercase (no separate `lower` string), trimmed value constructed
   once (no substr temp + no strut_trim_ascii double copy), no `header` line temp.
 - Map reserved before the loop (no bucket rehash), classification runs BEFORE the
-  values are moved into the map (the earlier move-before-classify bug fixed -> 400).
+  values are moved into the map (the earlier move-before-classify bug -> 400).
 
 Public API and public `http_request.headers` semantics unchanged (case-insensitive map,
 duplicate rejection 400, Host/CL/TE/Connection/Upgrade/Cookie rules identical).
@@ -32,15 +37,19 @@ duplicate rejection 400, Host/CL/TE/Connection/Upgrade/Cookie rules identical).
 | workload            | base median | O median | delta   | pairs |
 |---------------------|-------------|----------|---------|-------|
 | /plaintext (1 hdr)  | 16219.6     | 16482.6  | +1.6%   | 4/7   |
-| /plaintext (8 hdrs) | 10648.3     | 13049.7  | +22.6%  | 5/5   |
+| /plaintext (8 extra headers) | 10648.3 | 13049.7 | +22.6%  | 5/5   |
 
-The 8-header test is the decisive architectural signal: header-count scaling is exactly
+The 8-extra-header test is the decisive architectural signal: header-count scaling is exactly
 where the representation change pays (consistent with Hyper's header-scaling design).
 1-header c=50 barely moves (map-node cost dominates there; little wins because tiny
-requests).
+requests). Classification: 1-header canonical = weak-positive/noisy; 8-extra-header =
+strong scaling win.
+
+## Same-session Strut (51771f9) vs frozen Go — canonical minimal-header /plaintext, c=50, N=7 each, identity-gated
+- Go median 19514.8 (range ~18245-19779); Strut median 17032.9 (range ~15960-17459).
+- **Strut/Go = 87.3%** (benchmark/session-specific). ~14-15% behind the frozen Go
+  control at c=50.
 
 ## Decision: KEEP
 Committed as 51771f9. Retained alongside beed5ba, 87e00ff/80556b4, 73d379a, da4a8f2.
-
-Next: same-session Strut (51771f9) vs frozen Go at the canonical /plaintext,
-N>=7 if practical.
+Next: route-scaling study (R8.5-P) before any compiled-router implementation.
