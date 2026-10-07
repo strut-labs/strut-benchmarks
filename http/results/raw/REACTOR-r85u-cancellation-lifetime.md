@@ -20,12 +20,26 @@ object (shared_ptr state, per-request source, legacy cancel-on-scope-exit), but 
 capability inference, not yet a demonstrated language/runtime contract. A behavioral
 escape fixture is required (below).
 
-## A runtime fixture was NOT added (documented limitation)
-A DSL fixture that retains the token in a worker and waits for cancellation risks deadlock
-(the worker must be joined; the request-scope cancel may run after the join) and the DSL
-has no timed/optional channel receive, so it cannot be made hang-proof. Per the reviewer's
-allowance, escape semantics are certified by source inspection + the existing
-cancellation.p copy/observe fixture rather than an unsafe new test.
+## Behavioral certification (deterministic escape fixture)
+fixtures/concurrency/cancellation-escape.p: a callback does
+`escaped.send(request.cancellation)` on a `channel<cancellation_token>`; the client runs
+on its own thread; main receives the token and `client.join()`s (guaranteeing the request
+completed) before inspecting. Result:
+- reactor (STRUT_HTTP_REACTOR=1): status200, retained.cancelled()==0 after completion ->
+  the token ESCAPES and stays VALID (no dangling); escape is real, not just a source
+  capability.
+- legacy (default mode): same program prints retained.cancelled()==1 (the `request_scope`
+  dtor cancels the source on scope exit).
+
+## DISCOVERED SEMANTIC DIVERGENCE (flagged; possible correctness bug)
+Post-completion `cancelled()` on an escaped request token DIFFERS by mode:
+- legacy: becomes cancelled (~ `request_scope` destructor calls source->cancel()).
+- reactor: remains uncancelled (normal buffered completion does not cancel the per-request
+  source; only disconnect(1842)/stop/stream cancel).
+This is user-observable (retained token). Recorded, NOT hidden. It is a cancellation-
+correctness question, out of the R8.5 performance scope; needs a decision (should reactor
+match legacy, or is cancel-on-completion legacy-only?). No new behavior was designed
+around it.
 
 ## Consequence for allocations #2/#3
 The per-request `make_shared<strut_cancellation_source>` + its inner
