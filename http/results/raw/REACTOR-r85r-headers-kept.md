@@ -51,3 +51,27 @@ Committed as 5c647bf. Retained stack: beed5ba, 87e00ff/80556b4, 73d379a, da4a8f2
   (19787-21323), Strut median 17238 (16808-17594), ~85.8%. Essentially the same as the
   pre-Q ~87.3% (session-specific); R's +3.4% canonical A/B and Go's faster session
   offset. Current Strut ~= 86% of frozen Go at c=50 on a healthy node.
+## Fix-forward certification (main a08fea5)
+Language audit of the actual DSL `map<string,string>` API (not the C++ unordered_map
+surface): legal ops are `[]` read, `contains`, `insert`, `remove`, `length`, `clear`,
+copy (inferred/typed), pass-to-function, assignment, return, and `==`/`!=`. R's container
+initially lacked `==` and assignment-from-`unordered_map`; fix-forward added
+`operator==/+!=` (both directions vs strut_http_headers and unordered_map) and
+construct/assign from unordered_map. Container change is small; re-certified with the
+full strict wall: CTest 16/16 normal + GCC -Werror + Clang -Werror + ASan/UBSan;
+regressions 291/291 default + reactor. Permanent fixture headers-map-ops now exercises
+insert/read/length/remove/contains + copy + typed-copy + pass(map param) + assign-back +
+equality + clear through real Strut source. Slice budget 165000->166000 (justified).
+
+## R8.5-S representation note (blocker found)
+Span-backed header VALUES conflict with the map value contract: the DSL exposes header
+reads/writes through `request.headers[...]`, which for the mutable map semantics
+requires an lvalue `strut_string&`. A pure span (offset+len into backing) cannot yield a
+`strut_string&` without materializing an owned string per access, which removes the win
+for ordinary reads. Header NAMES are already normalized and small (SSO), so span names
+gain little. Therefore the "stable backing + span values" step as originally scoped is
+constrained by the mutable-reference API: only an owned/lazy-on-mutation value model is
+viable, and only mutation pays a materialization — likely neutral for read-dominated
+traffic. Reported as a representation blocker; recommended pivot to the next whole-layer
+target (cancellation/shared ownership, ~10.7% of observed malloc samples) unless a
+narrower S is defined.
