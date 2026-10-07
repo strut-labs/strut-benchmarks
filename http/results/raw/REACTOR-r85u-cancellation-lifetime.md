@@ -3,7 +3,7 @@
 Question: can a callback retain `request.cancellation` and observe it after the callback
 returns / across keep-alive? Does shared ownership do real semantic work?
 
-## Source-certified answer: YES, tokens escape and must stay meaningful
+## Source audit (suggests escaping lifetime; NOT yet behaviorally certified)
 - `strut_cancellation_token` copy = `shared_ptr<strut_cancellation_state>` share (token
   holds `state_`; `source.token()` returns a token sharing the source's state). Copies are
   cheap and share the SAME state; the existing `fixtures/concurrency/cancellation.p`
@@ -15,8 +15,10 @@ returns / across keep-alive? Does shared ownership do real semantic work?
   `make_shared<strut_cancellation_source>()`, so a token retained from request N keeps its
   own state and is NOT cancelled by keep-alive request N+1 (generation independence is
   natural, because the source is per-request, not per-connection).
-=> A retained token must outlive the callback/request; the state cannot be a resettable
-connection-embedded object. Shared ownership is required.
+=> The source STRONGLY SUGGESTS retained tokens are designed to survive their request
+object (shared_ptr state, per-request source, legacy cancel-on-scope-exit), but this is a
+capability inference, not yet a demonstrated language/runtime contract. A behavioral
+escape fixture is required (below).
 
 ## A runtime fixture was NOT added (documented limitation)
 A DSL fixture that retains the token in a worker and waits for cancellation risks deadlock
@@ -34,10 +36,14 @@ reduction would need a SERVER-ONLY co-allocated source/state (one allocation, pu
 allocation/request, which our campaign has repeatedly shown to be neutral-to-small for
 throughput (R8.5-G/I/K flat; R8.5-T ~0-2% and now already banked).
 
-## Decision: PARK deeper cancellation
-Bank the easy win (R8.5-T). The remaining #2/#3 reduction needs a lifetime-sensitive
-server-only ownership design for an expected small gain; not justified now. Revisit only
-if cancellation shows up as a dominant cost in a future realistic profile.
+## Decision: PARK deeper cancellation (reason: complexity vs evidence, not assumed payoff)
+Bank the easy win (R8.5-T). The remaining #2/#3 allocations participate in shared
+lifetime semantics; removing them safely appears disproportionately invasive
+(server-only co-allocation / aliasing ownership / generation machinery) relative to the
+current evidence, while other structural targets have stronger measured headroom. This
+is a scope decision, NOT a claim that removing them would be neutral -- the campaign has
+seen whole-layer allocation/ownership removals (serializer, M, N, O, R) produce real
+wins.
 
 ## Next structural target (recommended)
 Return to an open Rust-style gap with clearer headroom, e.g. the header path's still-owned
