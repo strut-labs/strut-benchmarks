@@ -39,8 +39,27 @@ mechanism is a direct code-path removal.)
 Consistent positive (9/10 paired wins); modest magnitude. Mechanism + simplicity +
 consistency justify KEEP.
 
-## Decision: KEEP
-Committed as 2337434. Retained stack: beed5ba, 87e00ff/80556b4, 73d379a, da4a8f2,
+## Semantic repair (fix-forward 0e95d0d, Option B)
+The first T (2337434) changed PUBLIC default `cancellation_token` semantics (null
+state -> wait() returned immediately, subscribe() empty). Default construction is legal
+in the DSL (`cancellation_token t;`) and observable. Fix-forward restores the allocating
+default ctor (cancelled false, blocking wait, live subscribe) and adds an INTERNAL
+`strut_cancellation_no_state_t` tag used ONLY by `strut_server_request`'s cancellation
+placeholder (member initializer). The placeholder is replaced from
+`conn->cancellation->token()` / `request_scope source_->token()` before any callback;
+audited all 4 callback paths (buffered worker, request_stream, websocket, legacy
+request_scope) + pump dispatch sets `conn->cancellation` first. No user-visible request
+can observe the placeholder. Hot path is byte-identical to the original T (server
+placeholder never allocated in either).
+
+Certification after repair: full strict wall CTest 16/16 normal + GCC -Werror + Clang
+-Werror + ASan/UBSan; regressions 292/292 default + 292/292 reactor (added
+fixtures/concurrency/cancellation-default-token.p asserting default token cancelled()==false
+and no throw).
+
+## Decision: KEEP (repaired)
+Committed as 0e95d0d (main), superseding 2337434. Public semantics preserved; one eager
+parse-time cancellation-state allocation removed per buffered request. Retained stack: beed5ba, 87e00ff/80556b4, 73d379a, da4a8f2,
 51771f9, 56ea341, 5c647bf, a08fea5, 2337434.
 
 ## Remaining / next
