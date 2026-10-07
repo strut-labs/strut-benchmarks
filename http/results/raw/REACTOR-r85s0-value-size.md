@@ -21,12 +21,23 @@ while bytes/request grow ~4x; at 256B (-28%) the drop tracks the ~2KB/request ne
 cost. This matches the campaign-wide finding that REDUCING MALLOC EVENTS ALONE rarely
 moves throughput (R8.5-G/I/K were flat; wins came from removing CPU/whole layers).
 
-## Decision: PARK S (no strong value-representation penalty beyond network bytes)
-The proxy/lazy-owned-value design (needs codegen-aware lowering off today's
-`strut_string& operator[]`) is high-complexity for an expected small payoff: even
-removing all ~15 extra allocs/req at 64B would be, by our own evidence, a low-single-
-digit percentage, and the canonical/8x8B benchmarks are SSO-covered (near-zero
-representation alloc). Not worth building before a clearly larger lever.
+## Decision: DEPRIORITIZE S (not disproven)
+S0 is CHARACTERIZATION, not causal isolation: it changed bytes/request, bytes copied,
+value-string construction, SSO->heap crossing, memory bandwidth, cache footprint, parser
+work and generator load together, so it does NOT prove the -6.4%/-28% drops are "mostly
+network bytes", nor that allocator cost is negligible. The malloc-uprobe run is heavily
+perturbed (diagnostic rps 5.5k/3.6k vs 14k/13k uninstrumented), so 13.2 vs 28.0 events
+only shows crossing SSO materially increases malloc activity -- not an authoritative
+per-request count, and NOT a basis to project the payoff of removing them (S is
+unimplemented).
+
+Defensible conclusion: long header values DO create substantially more allocator
+activity and lower throughput, so span/lazy values have real potential headroom for
+long-value/header-heavy traffic. But canonical and current short-header workloads are
+largely SSO-covered, while exploiting that headroom needs a comparatively invasive
+proxy/codegen representation change. S is DEPRIORITIZED in favour of a target whose cost
+sits on the CANONICAL path (cancellation), and remains a legitimate later optimization
+for long-value/header-heavy workloads.
 
 ## Pivot: cancellation / shared ownership
 Unlike short header values, per-request cancellation allocation exists in the CANONICAL
