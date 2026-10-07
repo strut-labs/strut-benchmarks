@@ -43,11 +43,16 @@ saturation; overall NO MEASURABLE WIN.
 
 ## Verdict: REVERT
 Mechanism provably changed (-92% reactor clock calls) but throughput is neutral
-across concurrency. Per rule, neutral + not-clearly-simpler => not retained. This closes
-the `steady_clock::now()` hypothesis: vDSO clock reads (~21 ns) are not a throughput
-lever on this 1-vCPU box (consistent with the preemption/syscall-churn story). Positive
-value: first high-confidence mechanism-level measurement in this campaign showing a
-large reduction with zero throughput effect.
+across concurrency. Per rule, neutral + not-clearly-simpler => not retained. Wording:
+"redundant reactor steady_clock reads are NOT a measurable throughput lever here" --
+this closes the cached-now / event-batch reuse strategy for accept-deadline,
+read-deadline refresh, and expiry scan on this 1-vCPU benchmark. It does NOT rule out
+timed-epoll behavior, deadline data structures, timeout scanning, or broader reactor
+timer architecture. Deadline semantics note: the reverted candidate based some
+deadlines on the batch-start timestamp, so the deadline shift was bounded to the
+event-batch processing interval (deadlines may be marginally earlier, never later).
+Positive value: first high-confidence mechanism-level measurement in this campaign
+showing a large reduction with zero throughput effect.
 
 ## State
 Compiler retained at 80556b4 (unchanged). Nothing retained from R8.5-L. Node stopped,
