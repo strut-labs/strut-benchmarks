@@ -41,3 +41,7 @@ Cumulative since 80556b4 (retained): R8.5-M +4.6% + R8.5-N +2.0% at c=50. R8.5-M
 certified via 289x2 at 73d379a; R8.5-N certified via 289x2 at the candidate build.
 
 Next: same-session Strut (da4a8f2) vs frozen Go, N>=7.
+
+## Same-session Strut (da4a8f2) vs frozen Go (c=50, N=7 each, alternating, identity-gated)
+- Go median 18872.8 (range 17165-20152); Strut median 16368.9 (range 14696-16851).
+- **Strut/Go = 86.7%** (up from ~84% at 73d379a post-M vs ~79% at 80556b4).
