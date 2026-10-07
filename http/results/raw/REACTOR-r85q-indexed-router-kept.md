@@ -47,3 +47,19 @@ Committed as 56ea341. Retained stack: beed5ba, 87e00ff/80556b4, 73d379a, da4a8f2
 route count. Route index is built at registration (routes only registered while
 stopped), preserving "expensive compile at registration, cheap lookup" (Hyper/matchit
 lesson).
+
+## Exact-key safety invariant
+The exact static-route key serializes compiled segments with '\0' delimiters, so "/a"
+and "/a/" intentionally share a bucket (historical trailing-slash semantics). This is
+unambiguous because '\0' cannot occur in a legal route segment (DSL string literal) or
+request path segment (strut_http_target rejects raw control bytes and %00-decoded
+0x00/0x7f). Covered by a permanent regression fixture:
+strut-regression-suite fixtures/network/route-exact-key-distinct.p (+.json), proving
+/a/bc, /ab/c, /a/b/c stay distinct while /a and /a/ share (290/290 both modes).
+
+## Canonical Go control wording
+"Last clean canonical control (pre-Q): Strut ~17,033 vs Go ~19,515 = ~87.3%."
+This was measured BEFORE Q (on 51771f9). Q's N=1/tiny-route A/B is canonical-neutral,
+so a similar ratio is EXPECTED, but 56ea341 vs Go has NOT been cleanly re-measured
+(the attempted rerun hit a degraded node session: both sides ~3k, discarded). Rerun on
+a healthy node.
