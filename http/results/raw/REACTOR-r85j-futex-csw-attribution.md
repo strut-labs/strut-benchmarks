@@ -24,6 +24,13 @@ handoff over `run->mutex` + `work_cv`** (half useful worker sleep, half contende
 completion-lock wait/wake). Stream workers, allocator, and connection-state locks are
 NOT material at c=50.
 
+Raw-source caveat: the 66.66% worker share and the worker-side split (33.38%
+pthread_cond_wait / 33.27% mutex::unlock) are directly visible in the perf call-tree.
+The 33.34% reactor-thread share is its per-pid total from perf; its classification as
+run->mutex wait/wake (completed/connections drain/scan) is inferred from the reactor
+main loop's only shared-mutex operations, and its inner call stack was not fully
+resolved. Treat the reactor-side sub-classification as approximate.
+
 ### Context switches (/proc/<pid>/task/*/status deltas, 12 s window)
 | thread                            | voluntary  | involuntary |
 |-----------------------------------|------------|-------------|
@@ -32,9 +39,13 @@ NOT material at c=50.
 | stream workers                    | ~0         | ~0          |
 total ~0.87 csw/request (was ~1.2 reported at R6.5).
 
-- App worker voluntary ~0.43/req => on average **~4.6 requests processed per
-  wake-sleep cycle** — the dispatch/ready side is ALREADY naturally batched (reactor
-  enqueues several ready conns per notify; worker drains until queue empty).
+- App worker voluntary context switches occur at ~0.43/request (~168k requests over
+  the window / ~73k additional voluntary switches ~= **2.3 requests per worker
+  voluntary context switch**). This suggests SOME natural batching, but the exact
+  requests per full work_cv wake/sleep cycle has NOT been measured here (mapping
+  /proc voluntary_ctxt_switches increments onto wake/sleep cycles is not
+  established). The precise number requires directly counting work_cv.wait
+  entries / returns and requests processed between waits.
 - Reactor involuntary ~0.44/req (its wakeups are preemptions, main cause of the
   1-vCPU wall inflation seen in R8.5-H).
 
