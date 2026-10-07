@@ -23,12 +23,12 @@ WITHDRAWN: the earlier "8.79 -> 5.69 mallocs/request (-35%)" is NOT valid -- the
 5 s window and the 12 s wrk interval were not coextensive (perf started ~2 s before the
 load), so normalizing by rps*5 was wrong (same denominator error as R8.5-K).
 
-Corrected coextensive measurement (perf window and wrk -d5s started together; same
-method for both binaries, probe overhead applies to both):
+Near-coextensive diagnostic estimate (NOT exact): the perf 5 s window and the wrk -d5s
+run were started ~0.2 s apart, so they overlap ~4.8 s, not exactly 5 s; the denominator
+uses RPS*5. Direction is robust (R recorded FEWER samples while serving MORE requests).
 - BASE 56ea341: 423,008 malloc samples / ~26,230 requests = 16.13 malloc/request.
-- R: 402,973 samples / ~28,385 requests = 14.20 malloc/request.  **-12% per request**
-  (R had FEWER samples despite MORE requests). Consistent with removing the per-header
-  unordered_map node/bucket allocations. Same-shaped traces also showed 509,675 vs
+- R: 402,973 samples / ~28,385 requests = 14.20 malloc/request.
+Approximately 10-12% lower allocator-event density by this method (estimate, not exact). Same-shaped traces also showed 509,675 vs
   343,849 total samples earlier (different window) -- direction agrees, exact % differs.
 
 ## Throughput — same-session warmed identity-gated A/B (BASE 56ea341)
