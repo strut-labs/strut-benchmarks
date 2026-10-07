@@ -1,3 +1,9 @@
+# R8.5-F — scoped phase-attribution: COMPLETED (see REACTOR-r85f-attribution.md)
+
+SUPERSEDED: clean phase attribution was completed. See REACTOR-r85f-attribution.md
+(per-phase ns/sampled) and REACTOR-r85g-parse-flat.md (parse candidate A/B neutral,
+reverted). Main repo remains pristine at 80556b4.
+
 # R8.5-F — scoped phase-attribution: status (honest)
 
 Repository/index-state incident resolved: the beed5ba baseline checkout had
