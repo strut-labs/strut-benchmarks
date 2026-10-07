@@ -27,19 +27,26 @@ Same-session alternating A/B:
 - N=1000 miss ~flat (scan count identical).
 
 ## Verdict: REVERT the router prototype
-The compiled matcher preserves ordering+405 semantics, which FORBIDS skipping
-candidates, so routes_considered stays exactly linear; the only win is a smaller
-per-candidate constant (~+2% at N=1000), which does NOT meet R8.5-P's "substantial win
-at 100/1000 routes" criterion. Package growth (>1 struct, parallel array, second
-matcher) is not justified at +2%.
+The compiled matcher keeps candidates_considered exactly O(N) because it still scans
+every registered route in registration order; the only win is a smaller per-candidate
+constant (~+2% at N=1000), which does NOT meet R8.5-P's "substantial win at
+100/1000 routes" criterion. Package growth (struct + parallel array + second matcher)
+is not justified at +2%.
+
+## IMPORTANT (corrected): registration order + 405 do NOT require inspecting every route
+Current <=> (1) find every registered PATTERN that matches the path; (2) choose the
+lowest-registration-ordinal pattern whose method matches (with a handler); (3) if any
+path matched but no method+handler matched -> 405; (4) if no path matched -> 404.
+That is equivalent to the linear scan. An index that returns only the actually-matching
+route patterns, retaining registration ordinals as data, reproduces it exactly WITHOUT
+scanning all routes. Compiled-SEGMENT scan is not a substitute for a real index; but
+indexing is not blocked by the semantics.
 
 ## Implication / next step
-A genuinely sub-linear router requires an ORDER-RESPECTING route trie / exact-index
-that reproduces "first registration-order path-match, method recorded for 405" -
-a larger, higher-risk checkpoint (the reviewer's "later" study). P's measurement is the
-deliverable: linear scan with exact routes_considered, throughput collapse to ~1/3 at
-1000 late/miss. Park compiled routing for now; current Strut route behavior is
-order-exact.
+R8.5-Q: exact static-path index (unordered_map path->RouteIds) + parameter-pattern
+segment trie, registration ordinals retained, winner = lowest compatible ordinal,
+405 on any-path-match/no-method, params materialized only for the winner. The known
+O(N) defect is the target; P provided the measurement evidence.
 
 ## State
 Main unchanged at 51771f9 (router/counters lived only in the temporary worktree; both
