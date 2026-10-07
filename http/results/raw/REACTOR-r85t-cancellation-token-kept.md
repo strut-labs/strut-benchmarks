@@ -55,7 +55,12 @@ placeholder never allocated in either).
 Certification after repair: full strict wall CTest 16/16 normal + GCC -Werror + Clang
 -Werror + ASan/UBSan; regressions 292/292 default + 292/292 reactor (added
 fixtures/concurrency/cancellation-default-token.p asserting default token cancelled()==false
-and no throw).
+and no throw). Coverage limitation (documented): (a) `token.subscribe(...)` is NOT
+language-visible (runtime-internal), so no DSL fixture; (b) a default token's `wait()`
+blocks forever (no source to cancel it) and the DSL has no timed/optional channel receive
+without blocking, so proving default-wait blocking would hang the suite -- not safely
+testable; the restored allocating constructor + cancellation.p (which proves wait()
+blocks then returns on real cancellation) cover it as far as safely possible.
 
 ## Decision: KEEP (repaired)
 Committed as 0e95d0d (main), superseding 2337434. Public semantics preserved; one eager
