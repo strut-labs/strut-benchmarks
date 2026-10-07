@@ -63,15 +63,17 @@ regressions 291/291 default + reactor. Permanent fixture headers-map-ops now exe
 insert/read/length/remove/contains + copy + typed-copy + pass(map param) + assign-back +
 equality + clear through real Strut source. Slice budget 165000->166000 (justified).
 
-## R8.5-S representation note (blocker found)
-Span-backed header VALUES conflict with the map value contract: the DSL exposes header
-reads/writes through `request.headers[...]`, which for the mutable map semantics
-requires an lvalue `strut_string&`. A pure span (offset+len into backing) cannot yield a
-`strut_string&` without materializing an owned string per access, which removes the win
-for ordinary reads. Header NAMES are already normalized and small (SSO), so span names
-gain little. Therefore the "stable backing + span values" step as originally scoped is
-constrained by the mutable-reference API: only an owned/lazy-on-mutation value model is
-viable, and only mutation pays a materialization — likely neutral for read-dominated
-traffic. Reported as a representation blocker; recommended pivot to the next whole-layer
-target (cancellation/shared ownership, ~10.7% of observed malloc samples) unless a
-narrower S is defined.
+## R8.5-S representation note (constraint, not a dead end)
+The CURRENT C++ representation (`strut_string& strut_http_headers::operator[]`) blocks
+pure spans: a span (offset+len) cannot honestly return `strut_string&` without first
+materializing a string. This is a blocker to one implementation, NOT to lazy/spanned
+values in principle. The Strut LANGUAGE contract does not expose C++ `strut_string&`; it
+requires `request.headers[key]` to be readable and assignable as a string, plus the
+generic map value semantics now certified. Those could be implemented with a
+proxy/lazy-value reference type (`operator strut_string()` for reads from a span;
+`operator=(strut_string)` materializing/detaching only that entry on mutation; escape
+operations copy/pass/equality/ordinary-map-conversion materialize lazily). That is a
+larger runtime/codegen-aware lowering, but need not change Strut source semantics. NOT
+implemented preemptively: short benchmark values are SSO-sized, so the expected win on
+the current canonical/8-extra-header workloads may be near zero. S0 value-size study
+below decides.
