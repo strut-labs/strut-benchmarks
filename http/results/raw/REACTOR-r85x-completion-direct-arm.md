@@ -29,9 +29,14 @@ reactor's completion drain batches: it swaps the whole `completed` deque and iss
 relative to a per-response `epoll_ctl(MOD)` from the worker plus re-waking the reactor.
 So the worker->reactor completion handoff is NOT waste -- it is a batching mechanism.
 
-This also localises W's +6.7%: it came from the OTHER half (executing the callback inline
-on the reactor, avoiding the worker wake/sleep), not from removing the completion
-handoff. That half is not production-safe (a blocking handler would stall the reactor).
+Interpretation (not over-decomposed): X rules out the worker->reactor completion handoff
+as a cheap production-safe optimization. It does NOT let us attribute W's +6.7% piecewise
+-- W changed several interacting costs at once (removed reactor->worker queue/wake, worker
+scheduling, ran the callback inline, removed the completion handoff+wake, kept hot state
+on the reactor), while X changed only the completion half and replaced it with a
+different pattern (worker-side epoll_ctl). Effects need not be additive. W still
+establishes that eliminating the ENTIRE scheduling handoff topology has only a ~+6.7%
+upper-bound benefit on canonical /plaintext.
 
 ## Decision: REVERT
 No production-safe scheduler win is available here; the cheap half is negative. Per clause
