@@ -30,13 +30,16 @@ App-worker path (~32.0%):
 | serializer `reserve` (head string)   | 3.55%  |
 | strut_http_text / response construct | ~3.6%  |
 
-## Category roll-up
+## Category roll-up (shares of malloc uPROBE SAMPLES in the diagnostic window)
+These are sample-share percentages, not exact allocations/request. Roughly half of
+observed malloc samples were associated with header/request representation and
+copying:
 - Header unordered_map representation + its ~3-4 deep copies per request
   (parse build 7.1 + pump copy 10.7 + worker copy 21.3 + assigns 7.2 + fn-param copy
-  ~3.6)  **~50% of all mallocs**
-- Parser string/copy churn (substr/trim/target/vector/field strings) **~28%**
-- Cancellation shared_ptr (state via head ctor + source via conn) **~10.7%**
-- Response construction + serializer head reserve **~10.7%**
+  ~3.6)  ~= half of observed samples
+- Parser string/copy churn (substr/trim/target/vector/field strings) ~28%
+- Cancellation shared_ptr (state via head ctor + source via conn) ~10.7%
+- Response construction + serializer head reserve ~10.7%
 - Route/params, completion/deque, allocator internals: not material.
 
 ## Chosen single candidate (largest clean general-purpose source)

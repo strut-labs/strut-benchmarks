@@ -33,25 +33,22 @@ untouched. Verified present in the emitted program
 Median CAND/BASE ~= -2.0%; ranges overlap (14732-15872 vs 14379-15949).
 **No measurable win -> REVERTED**, not committed.
 
-## Mechanism re-measurement
-perf uprobe `probe_libc:malloc`, 5 s windows, identical methodology for both:
-- strut_base: 395,514 samples @ rps 11,553 -> ~6.85 samples/request
-- strut_k_cand: 339,784 samples @ rps 9,855 -> ~6.89 samples/request
+## Mechanism re-measurement (NOT authoritative per-request)
+Follow-up tracing used a 5 s perf window that overlapped only PART of the 12 s wrk
+interval, so comparing samples against the full wrk request count does NOT establish a
+precise per-request malloc delta. The follow-up tracing did not show an obvious large
+reduction, but the "mallocs/request unchanged" claim is withdrawn.
 
-Parity, so the traced malloc population (subset of the ~29/request interposer
-baseline, ~1/4 of it) did not shrink per request despite the move being present.
-Notable: 1-vCPU rps oscillated (9.8-15.9k across windows) so per-request sample
-comparisons are coarse.
-
-## Interpretation / implication
-Same conclusion as R8.5-G, R8.5-H, R8.5-I: removing sizable user-space allocation +
-copy work (up to ~25% of requested allocations/request) does not move saturated
-throughput on the 1-vCPU box. Combined evidence stack: reactor involuntary csw
-~0.44/request + flush/parse wall >> CPU + flat wake/parse/copy experiments imply the
-binding constraint is scheduler/preemption and syscall churn (recv ~1.92, writev
-~0.96, eventfd ~0.96, futex ~1.34 per request), not user-space CPU or allocation
-volume. R8.5-E (serializer) remains the exception that proved removal matters only
-when the removed work is a large share of the CPU-limited loop.
+## Interpretation / implication (hypothesis only)
+One move-elision not moving throughput does NOT prove scheduler/preemption is the
+binding constraint. The emitted runtime still contains other `strut_server_request`
+copy sites earlier in the reactor path and in the stream/websocket workers, so this
+candidate did NOT remove the whole header-copy chain. The pattern of flat results
+(R8.5-G parse cleanup, R8.5-I pending-wake, this move) is consistent with, but does
+not establish, a scheduler/preemption + syscall-churn hypothesis (recv ~1.92, writev
+~0.96, eventfd ~0.96, futex ~1.34 per request; reactor involuntary csw ~0.44/request).
+That remains a hypothesis to be tested by a retained throughput win, not a proven
+constraint.
 
 ## State
 Compiler retained at 80556b4. Nothing from R8.5-K retained. Both repos clean; node A
