@@ -39,4 +39,7 @@ Committed as 5c647bf. Retained stack: beed5ba, 87e00ff/80556b4, 73d379a, da4a8f2
 ## Notes / next
 - Stable span-backed values (S) and cancellation ownership remain the following
   architectural steps; not folded into R (bounded container-only change).
-- Canonical Strut vs frozen Go rerun: pending a healthy node session.
+- Canonical Strut vs frozen Go (healthy session, N=7/6, c=50): Go median 20091
+  (19787-21323), Strut median 17238 (16808-17594), ~85.8%. Essentially the same as the
+  pre-Q ~87.3% (session-specific); R's +3.4% canonical A/B and Go's faster session
+  offset. Current Strut ~= 86% of frozen Go at c=50 on a healthy node.
