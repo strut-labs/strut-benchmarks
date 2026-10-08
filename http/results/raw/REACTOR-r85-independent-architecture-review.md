@@ -17,7 +17,7 @@ Current framework source fetched once into `/tmp/r85-frameworks`, with these imm
 | Trantor (transport inspected separately) | `a9e15161d092301d49e67e89ae3c29ca4f05c27e` |
 | oatpp | `f83d648fd82dc222ef88aabbafb68efbd7d7bf50` |
 
-These are branch heads fetched on the review date, not a matched Drogon release and its pinned Trantor submodule. Transport conclusions describe the inspected Trantor revision. Framework throughput was not measured. No inference that C++ reaches the historical Rust floor is presented as a result.
+These are branch heads fetched on the review date, not a matched Drogon release and its pinned Trantor submodule. Transport conclusions describe the inspected Trantor revision. Framework throughput was not measured. No inference that C++ reaches the historical Rust floor is presented as a result. Drogon/Trantor provides a concrete example of the architectural difference; current Crow synchronous Asio writes are another source observation. Neither observation establishes that the write policy is responsible for framework performance; the Strut performance inference was tested independently.
 
 ## 1. Strut hot path
 

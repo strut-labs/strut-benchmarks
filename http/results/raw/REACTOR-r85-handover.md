@@ -1,74 +1,77 @@
-# R8.5 → next roadmap: handover
+# R8.5 final handover
 
-Status: **R8.5 (Linux HTTP/reactor hot-path performance) is CLOSED.**
+**R8.5 CLOSED — closure fully accepted.** The campaign exhausted the currently evidenced bounded structural candidates. Further HTTP work would need a new architectural hypothesis or substantially more invasive redesign without sufficient current evidence. This does not mean HTTP performance is solved, that Strut cannot reach Rust, or that no further optimization exists. Stop R8.5 here.
 
-## Final retained compiler
-- Commit: **0e95d0d** (Strut 0.0.3 line).
-- Retained ancestry: `beed5ba` (route matcher cleanup), `87e00ff`+`80556b4` (direct
-  response serializer + bounded reserve), `73d379a` (pump copy/copy-back removal),
-  `da4a8f2` (final buffered request copy removal), `51771f9` (direct/range-guided
-  header construction), `56ea341` (order-preserving indexed router), `5c647bf`+`a08fea5`
-  (flat `strut_http_headers` + equality/assign fix-forward), `0e95d0d` (null-safe default
-  cancellation_token placeholder).
-- Legacy remains the default; reactor is behind `STRUT_HTTP_REACTOR=1`.
+## Final state
 
-## Final benchmark report
-- `strut-benchmarks/http/results/raw/REACTOR-r85-final-report.md` (commit `1b28c09`).
+- Retained compiler: **`0e95d0d5062f55a7a3c051e7311e26acc2e90a44`** (Strut 0.0.3).
+- Existing retained-main certification: **294/294 default + 294/294 reactor**; authoritative, not rerun for this administrative handover.
+- Final independent experiment/evidence: **`2cb02d3`** in `strut-benchmarks`.
+- Earlier final campaign report/evidence: **`1b28c09`**; preserved. The independent review is an addendum/final challenge, not a replacement for the DeepSeek campaign.
+- No immediate-write production change retained. Candidate patch reversed; reverted isolated compiler emits byte-identical corrected BASE source.
+- Legacy remains default; reactor uses `STRUT_HTTP_REACTOR=1`.
 
-## Retained architectural changes (with measured effect)
-- R6.5 writev (early).
-- R8.5-E serializer ~+8.4% c=50 (7/7).
-- R8.5-M pump copy removal ~+4.6% (7/10).
-- R8.5-N last buffered copy removal ~+2% (7/10).
-- R8.5-O header construction: +1.6% canonical, +22.6% @ 8-extra-header (5/5).
-- R8.5-Q indexed router: 1000-route exact-last ~2.5x, param ~2.8x, miss +37%; N=1 neutral.
-- R8.5-R flat header container: +3.4% canonical (6/6), +7.1% @ 8-extra-header (5/5).
-- R8.5-T null-safe default token: small positive (~0-2%, mechanism: 1 eager alloc/request
-  removed).
+## Major retained architecture
 
-## Known unresolved semantic notes (deliberately NOT changed in R8.5)
-1. **Cancellation completion divergence** — an escaped `request.cancellation` token's
-   post-completion `cancelled()` differs: legacy `true` (request_scope dtor cancels its
-   source), reactor `false` (normal buffered completion does not cancel the per-request
-   source). Unresolved API/correctness question; needs a deliberate decision. Evidence:
-   REACTOR-r85u-cancellation-lifetime.md; fixture
-   strut-regression-suite/fixtures/concurrency/cancellation-escape*.{p,json}.
-2. **V — stable header backing / lazy values: PARKED** (poor expected CANONICAL payoff:
-   short values are SSO; canonical /plaintext doesn't consume header values; a correct
-   lazy representation needs a moderate runtime/codegen change). Evidence:
-   REACTOR-r85v-header-backing-feasibility.md.
-3. **Deeper cancellation ownership (allocations #2/#3): PARKED** — participation in shared
-   lifetime semantics makes safe removal disproportionately invasive. Evidence:
-   REACTOR-r85u-cancellation-lifetime.md.
-4. **Scheduler topology**: fully-removed handoff (W diagnostic) = +6.7% upper bound;
-   production-safe completion half (X) = -10.5% (reverted). No cheap production-safe win;
-   the handoff is not the ~2x Rust gap. Evidence: REACTOR-r85w / -r85x.
+| Retained work | Commits / evidence |
+| --- | --- |
+| Route matcher cleanup | `beed5ba` |
+| Direct response-head serializer, bounded reserve | `87e00ff`, `80556b4`; +8.4% canonical in its measured pairs |
+| Request ownership/move cleanup, removal of pump and buffered deep copies | `73d379a`, `da4a8f2` |
+| Direct/range-guided request-head construction, redundant header representation removed | `51771f9` |
+| Indexed exact router + parameter trie, registration-order semantics preserved | `56ea341`; removes large-route linear collapse |
+| Specialized flat request headers, generic map semantics certified | `5c647bf`, `a08fea5` |
+| Internal request cancellation placeholder avoids one eager allocation; public default-token semantics preserved | `0e95d0d` fix-forward |
 
-## Current benchmark standing (same-session, healthy)
-- Strut canonical /plaintext c=50: ~17-18k. Frozen Go: ~19-20k -> Strut ~mid/high-80%s of
-  Go (session-dependent). Frozen Rust: >=35k historical, generator-limited floor.
-- Strut has NOT reached Rust-class canonical throughput.
+Earlier vectored response write/writev remains retained. The listed commits remain in retained compiler ancestry; no history rewritten.
 
-## Regression suite
-- `strut-regression-suite`: **294/294 default + 294/294 reactor** (includes request.headers
-  map-op certification, exact-route-key non-collision, cancellation escape/lifetime).
+## Negative evidence and parked directions
 
-## Next roadmap checkpoint
-- Return to the planned Strut roadmap; no further Linux HTTP/reactor performance work
-  unless a future independent investigation produces genuinely new evidence.
-- Infrastructure: both Linodes retained, services stopped while idle. Preserve
-  stash@{0}, dogfood/__pycache__/, tools/__pycache__/, /tmp/strut-site-main; no destructive
-  git, no `pkill -f`.
-## Independent closure challenge completed (2026-10-08)
+| Direction | Outcome / evidence |
+| --- | --- |
+| Read-once | Neutral, reverted (R8.5-B; final report) |
+| Wake batching/suppression | Incorrect empty-to-nonempty suppression rejected; corrected batching neutral, reverted (A/I) |
+| Cached reactor clock | Mechanism reduced clock calls, canonical neutral, reverted (L) |
+| Compiled-but-linear router | Still O(N), weak gain, reverted (P); actual indexed router retained (Q) |
+| Stable-backed/lazy header values on canonical path | Parked: short/SSO values give poor expected payoff; more invasive lowering needed (S0/V) |
+| Deeper cancellation ownership | Parked: escaped-token/stack-source lifetime constraints; no safe simple allocation removal (T/U) |
+| W: buffered callback executes on reactor | +6.7%, 7/7; diagnostic only, loses blocking-handler isolation |
+| X: worker directly arms EPOLLOUT | −10.5%, 1/7 wins; reverted |
+| Immediate-write: worker callbacks and completion batching retained; reactor flushes during completion drain | −0.46% median ratio, −0.55% median paired delta, 5/10 wins; neutral/noisy, reverted |
 
-Crow/Drogon/oatpp source architecture review accepted and retained:
-`REACTOR-r85-independent-architecture-review.md`. Exactly one candidate tested:
-reactor-local immediate write during ordinary completion drain, retaining worker
-isolation and completion batching. Matched syscall mechanism confirmed, correctness
-gates passed, but canonical c=50 N=10 gave **−0.46%, 5/10 wins -> REVERT**.
+W is evidence about its particular inline variant, not a mathematical upper bound on every scheduler topology. X did not test optimistic writes. The defensible synthesis is that none of the bounded production-compatible scheduler/write-transition candidates identified in this campaign delivered a compelling canonical win.
 
-Result: `REACTOR-r85-immediate-write-result.md`; raw evidence in `r85-independent/`.
-Compiler main stays **0e95d0d**. Candidate isolated source patch reversed, no history
-rewritten. **R8.5 CLOSED; no further performance candidate.** Both Linodes retained;
-benchmark processes stopped after runs. Full retention wall/Go control omitted as
-required for a rejected candidate.
+Immediate-write mechanism succeeded: matched local trace **epoll_ctl 308 -> 207**, **writev 102 -> 102**; separate diagnostic checkpoint **300,000 completions, 300,000 no-fallback attempts, zero EPOLLOUT fallback arms**. Removing the avoidable writable-readiness transition did not materially improve canonical throughput on this workload. Do not rescue the result through mechanism elegance, another concurrency/duration, or another scheduler tweak.
+
+Canonical measurement used ten alternating pairs, fresh processes, warm 10 s / measured 15 s, wrk t=2/c=50, exact identity gates and zero reported socket/non-2xx errors. BASE median **21,583.23**, CAND **21,484.305** RPS. All valid runs retained, including large negative/positive pair swings. N=7 was already negative/noisy (−1.11%, 3/7 wins). A stale initial local BASE was detected and rebuilt from exact retained source before any timed remote run; source-only candidate diff, hashes and raw ordering remain visible in the evidence.
+
+The losing candidate did not require a full retention wall or a fresh Go control. Existing retained-main certification stands.
+
+## Parked semantic and workload notes
+
+- **Cancellation completion divergence:** an escaped request token becomes cancelled after ordinary completion in legacy mode; normal buffered reactor completion leaves it uncancelled. This unresolved API/correctness decision was not changed. See `REACTOR-r85u-cancellation-lifetime.md` and cancellation-escape fixtures.
+- **Stable-backed/lazy header values:** remain possible if future header-heavy/long-value workload evidence warrants the representation and semantics work. Parked, not disproved universally.
+- **Rust gap:** unresolved; the campaign did not establish a single architectural explanation or reach the historical Rust floor.
+
+## Historical benchmark standing
+
+Healthy canonical Strut is roughly **high-teens / low-20k RPS depending session**. Frozen Go is roughly **19–21k in historical healthy controls**. Rust is **>=35k historical, generator-limited floor**.
+
+No fresh cross-language ratio is inferred. The final session's ~21.6k BASE uses the same retained compiler as earlier ~17–18k sessions; it is not evidence of a code improvement. The final candidate decision rests on same-session BASE/CAND. Go/Rust controls were not remeasured in that session.
+
+## Evidence to carry forward
+
+- [Final campaign report](REACTOR-r85-final-report.md).
+- [Independent Crow/Drogon/oatpp architecture review](REACTOR-r85-independent-architecture-review.md).
+- [Final immediate-write result and closure](REACTOR-r85-immediate-write-result.md).
+- [Raw pairs, identities, hashes, counters, patch and cleanup](r85-independent/).
+
+Drogon/Trantor provides a concrete example of the architectural difference; current Crow's synchronous Asio writes are likewise a source observation. Neither establishes that the observed write policy causes that framework's performance. The Strut analogue was separately implemented, mechanism-checked and measured.
+
+## Infrastructure, preservation and stop boundary
+
+Both retained Linodes remain **preserved and idle**: server `96.126.107.155`, generator `96.126.107.181`. Final experiment cleanup verified no :8080 listeners, no r85iw services/processes, and no wrk process. No new remote work was performed for this handover.
+
+Preserve `stash@{0}`, `dogfood/__pycache__/`, `tools/__pycache__/`, and `/tmp/strut-site-main`. No reset/clean/rebase/history rewrite, direct .git changes, `pkill -f`, or Linode deletion.
+
+**No further R8.5 candidate or HTTP/reactor performance investigation.** Do not start R9, R10, FFI, comptime or freestanding work without explicit direction to the next roadmap item.
