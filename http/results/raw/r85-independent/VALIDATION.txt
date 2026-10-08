@@ -1,0 +1,7 @@
+Final local correctness: 8 MiB delayed-reader response; 50 pipelined JSON responses; disconnect during large output and subsequent request: PASS.
+Final mechanism: 102 responses, BASE 308 epoll_ctl / 102 writev; CAND 207 epoll_ctl / 102 writev.
+Final CTest: 16/16.
+Focused network: default 27/27, reactor 27/27.
+Canonical A/B after explicit user approval: N=10 pairs; BASE median 21583.23, CAND 21484.305 RPS; -0.46%, 5/10 paired wins. REVERT.
+Remote separate diagnostic: 300000-completion checkpoint, 300000 no_fallback, zero EPOLLOUT_fallback.
+Compiler production main: unchanged 0e95d0d.

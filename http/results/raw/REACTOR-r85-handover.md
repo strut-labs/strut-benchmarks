@@ -59,3 +59,16 @@ Status: **R8.5 (Linux HTTP/reactor hot-path performance) is CLOSED.**
 - Infrastructure: both Linodes retained, services stopped while idle. Preserve
   stash@{0}, dogfood/__pycache__/, tools/__pycache__/, /tmp/strut-site-main; no destructive
   git, no `pkill -f`.
+## Independent closure challenge completed (2026-10-08)
+
+Crow/Drogon/oatpp source architecture review accepted and retained:
+`REACTOR-r85-independent-architecture-review.md`. Exactly one candidate tested:
+reactor-local immediate write during ordinary completion drain, retaining worker
+isolation and completion batching. Matched syscall mechanism confirmed, correctness
+gates passed, but canonical c=50 N=10 gave **−0.46%, 5/10 wins -> REVERT**.
+
+Result: `REACTOR-r85-immediate-write-result.md`; raw evidence in `r85-independent/`.
+Compiler main stays **0e95d0d**. Candidate isolated source patch reversed, no history
+rewritten. **R8.5 CLOSED; no further performance candidate.** Both Linodes retained;
+benchmark processes stopped after runs. Full retention wall/Go control omitted as
+required for a rejected candidate.

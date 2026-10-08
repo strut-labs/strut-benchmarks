@@ -1,0 +1,25 @@
+{
+  "base_commit": "0e95d0d5062f55a7a3c051e7311e26acc2e90a44",
+  "candidate": "same commit + immediate completion-drain write only",
+  "server": "96.126.107.155",
+  "generator": "96.126.107.181",
+  "compiler": "g++ Ubuntu 13.3.0-6ubuntu2~24.04.1",
+  "flags": [
+    "-std=c++17",
+    "-O2",
+    "-pthread"
+  ],
+  "base_source_sha256": "2eb4727d65995b127242f803fd284eaeb77780d4666823895e3dfa1ba142455a",
+  "candidate_source_sha256": "e10cef609757d3dc44ea613c8e73cd1ade0e4e02220487d15e03cb502167ff69",
+  "base_binary_sha256": "4cf24176aa7764561467dbd9d0249a38090e903f154fe494ad19d3b26c141ae8",
+  "candidate_binary_sha256": "e3ca6a1a91bdb45b95f10141168757cbe4832d285e20b28dec42259de98b9dd9",
+  "warm_s": 10,
+  "measure_s": 15,
+  "wrk_threads": 2,
+  "connections": 50,
+  "env": {
+    "STRUT_HTTP_REACTOR": "1"
+  },
+  "order": "odd pairs BASE/CAND, even pairs CAND/BASE",
+  "baseline_note": "rebuilt exact source before canonical; stale initial local BASE replaced"
+}

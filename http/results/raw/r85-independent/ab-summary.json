@@ -1,0 +1,18 @@
+{
+  "base": {
+    "median": 21583.23,
+    "min": 18713.49,
+    "max": 22392.12
+  },
+  "candidate": {
+    "median": 21484.305,
+    "min": 19224.92,
+    "max": 23210.87
+  },
+  "median_rps_delta_percent": -0.4583419627182783,
+  "paired_delta_median_percent": -0.5474406110568875,
+  "paired_wins": 5,
+  "pairs": 10,
+  "decision": "REVERT",
+  "reason": "neutral/noisy, no convincing canonical improvement"
+}

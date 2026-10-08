@@ -1,0 +1,28 @@
+PASS reactor: request.headers supports the generic map<string,string> operation surface
+PASS CP13 HTTP application helpers enforce checked errors
+PASS CP13 HTTP application helper public API compiles
+PASS bounded buffered HTTP client options compile
+PASS fully static libcurl request is rejected
+PASS HTTP client with environment-configured URL compiles
+PASS HTTP JSON result retains JSON indexing semantics
+PASS streaming HTTP client public async surface compiles
+PASS streaming HTTP client requires HttpError
+PASS streaming HTTP client public sync surface compiles
+PASS HTTP client composes with system runtime helpers
+PASS CP14 http_serve_file enforces checked errors
+PASS CP14 http_serve_file public API compiles
+PASS CP15 http_write_ndjson enforces checked errors
+PASS CP15 http_write_ndjson public API compiles
+PASS http client compiles
+PASS reactor path: request_stream body decoding + buffered coexist (STRUT_HTTP_REACTOR=1)
+PASS reactor: route semantics (static, :param, multi-param, trailing slash, mismatch)
+PASS reactor HTTP path serves and stops (STRUT_HTTP_REACTOR=1)
+PASS reactor path: stop() drains while requests are in flight (STRUT_HTTP_REACTOR=1)
+PASS reactor path: streaming route + buffered route coexist (STRUT_HTTP_REACTOR=1)
+PASS reactor path: websocket route + buffered route server starts/serves/stops (STRUT_HTTP_REACTOR=1)
+PASS reactor: exact-route key normalization does not conflate distinct segment layouts
+PASS tcp substrate compiles
+PASS tls client compiles
+PASS p1c get_async registration keeps synchronous NetworkError (not await-time)
+PASS p1c tcp accept_async future retains NetworkError (plain slot rejected)
+27 passed, 0 failed

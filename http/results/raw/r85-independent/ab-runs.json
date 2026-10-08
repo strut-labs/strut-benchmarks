@@ -1,0 +1,202 @@
+[
+  {
+    "pair": 1,
+    "tag": "base",
+    "rps": 22392.12,
+    "requests": 337982,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 1,
+    "tag": "cand",
+    "rps": 23210.87,
+    "requests": 350595,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 2,
+    "tag": "cand",
+    "rps": 21990.86,
+    "requests": 330622,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 2,
+    "tag": "base",
+    "rps": 21825.41,
+    "requests": 329624,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 3,
+    "tag": "base",
+    "rps": 21986.34,
+    "requests": 329902,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 3,
+    "tag": "cand",
+    "rps": 21567.34,
+    "requests": 323845,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 4,
+    "tag": "cand",
+    "rps": 19224.92,
+    "requests": 288691,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 4,
+    "tag": "base",
+    "rps": 21603.73,
+    "requests": 326254,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 5,
+    "tag": "base",
+    "rps": 18713.49,
+    "requests": 282101,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 5,
+    "tag": "cand",
+    "rps": 22504.47,
+    "requests": 339856,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 6,
+    "tag": "cand",
+    "rps": 20685.33,
+    "requests": 311069,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 6,
+    "tag": "base",
+    "rps": 21562.73,
+    "requests": 323924,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 7,
+    "tag": "base",
+    "rps": 21808.71,
+    "requests": 327384,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 7,
+    "tag": "cand",
+    "rps": 21401.27,
+    "requests": 321712,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 8,
+    "tag": "cand",
+    "rps": 21272.93,
+    "requests": 321204,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 8,
+    "tag": "base",
+    "rps": 21530.14,
+    "requests": 323222,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 9,
+    "tag": "base",
+    "rps": 20787.89,
+    "requests": 313706,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 9,
+    "tag": "cand",
+    "rps": 20808.63,
+    "requests": 312759,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 10,
+    "tag": "cand",
+    "rps": 21767.97,
+    "requests": 326929,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  },
+  {
+    "pair": 10,
+    "tag": "base",
+    "rps": 21519.4,
+    "requests": 324928,
+    "warm_s": 10,
+    "measure_s": 15,
+    "threads": 2,
+    "connections": 50
+  }
+]

@@ -61,3 +61,27 @@ for an unproven payoff. Documented honestly; **R8.5 closed.**
 - Cancellation-token escape/lifetime certified; legacy-vs-reactor completion-cancellation
   divergence documented as an unresolved API/correctness question (not changed in R8.5).
 - No R9/R10/FFI/comptime/freestanding touched.
+## Final independent architectural challenge (2026-10-08)
+
+Compared current Crow, Drogon/Trantor and oatpp source hot paths; review retained in
+`REACTOR-r85-independent-architecture-review.md`. Identified one distinct bounded
+candidate: keep worker callbacks/completion batching, but immediately flush ordinary
+responses on reactor completion drain and arm OUT only when output remains.
+
+Matched local mechanism: epoll_ctl 308 -> 207, writev 102 -> 102 over the same 102
+responses. Correctness: CTest 16/16, focused network 27/27 both modes, large-body
+backpressure, pipelining and disconnect checks passed.
+
+Canonical same-session alternating c=50 N=7 extended to N=10: retained 0e95d0d BASE
+median **21,583.23** vs CAND **21,484.305** RPS (**−0.46%**, CAND wins **5/10**).
+Neutral/noisy -> **REVERT**. All individual runs and identities retained in
+`r85-independent/`; decision in `REACTOR-r85-immediate-write-result.md`. This session's
+higher absolute BASE does not imply a compiler gain; Go/Rust controls were not rerun.
+
+W's +6.7% is evidence about that specific inline variant, not a mathematical upper
+bound on all event-loop redesigns. X did not test immediate writes. This final
+experiment independently tests the omitted readiness round trip and still finds no
+convincing canonical gain. No full retention wall needed for a rejected candidate.
+
+**R8.5 closure reaffirmed after the final independent challenge.** Retained compiler
+remains 0e95d0d. No more R8.5 candidates; no R9/R10/FFI/comptime/freestanding work.

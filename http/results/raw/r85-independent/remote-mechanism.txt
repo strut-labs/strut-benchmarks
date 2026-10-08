@@ -1,0 +1,15 @@
+LISTEN 0      128          0.0.0.0:8080      0.0.0.0:*    users:(("r85iw_diag",pid=201059,fd=3))
+THREADS=6
+
+Running 15s test @ http://96.126.107.155:8080/plaintext
+  2 threads and 50 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     2.10ms    2.15ms 206.90ms   99.04%
+    Req/Sec    11.27k   601.49    12.99k    69.46%
+  336538 requests in 15.02s, 29.85MB read
+Requests/sec:  22409.51
+Transfer/sec:      1.99MB
+
+R85 completions=100000 attempted=100000 no_fallback=100000 EPOLLOUT_fallback=0
+R85 completions=200000 attempted=200000 no_fallback=200000 EPOLLOUT_fallback=0
+R85 completions=300000 attempted=300000 no_fallback=300000 EPOLLOUT_fallback=0

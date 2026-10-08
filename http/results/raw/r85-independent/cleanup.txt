@@ -1,0 +1,7 @@
+Server 96.126.107.155: no :8080 listener, no r85iw units, no r85iw_base/r85iw_cand/r85iw_diag process.
+Generator 96.126.107.181: no wrk process, no :8080 listener.
+Candidate isolated patch reversed with git apply -R; source diff empty.
+Reverted isolated compiler rebuilt; emitted C++ byte-identical to corrected retained BASE (cmp passed).
+Production compiler HEAD remains 0e95d0d5062f55a7a3c051e7311e26acc2e90a44.
+Pre-existing stash@{0}, dogfood/__pycache__/, tools/__pycache__/, /tmp/strut-site-main untouched.
+Both Linodes preserved.

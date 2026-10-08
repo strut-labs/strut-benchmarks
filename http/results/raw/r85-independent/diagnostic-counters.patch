@@ -1,0 +1,11 @@
+--- /tmp/r85-cand.cpp	2026-10-08 12:22:44.517387974 +1100
++++ /tmp/r85-diag.cpp	2026-10-08 12:37:18.245864809 +1100
+@@ -1839,7 +1839,7 @@
+         std::vector<strut_reactor_event> events;std::uint64_t admitted=0;
+         for(;;){
+             std::deque<std::shared_ptr<reactor_connection>> completions;bool streams_active=false;{std::lock_guard<std::mutex> lock(run->mutex);if(run->reactor_data){completions.swap(run->reactor_data->completed);streams_active=run->reactor_data->streaming>0;}}
+-            for(auto& conn:completions){const auto handle=conn->socket.native_handle();if(handle==strut_invalid_socket)continue;bool live=false;{std::lock_guard<std::mutex> lock(run->mutex);auto& map=run->reactor_data->connections;auto f=map.find(handle);live=(f!=map.end()&&f->second==conn);}if(!live)continue;conn->phase=reactor_phase::writing;if(reactor_flush(s,run,reactor,conn))reactor->modify(handle,false,true);}
++            for(auto& conn:completions){const auto handle=conn->socket.native_handle();if(handle==strut_invalid_socket)continue;bool live=false;{std::lock_guard<std::mutex> lock(run->mutex);auto& map=run->reactor_data->connections;auto f=map.find(handle);live=(f!=map.end()&&f->second==conn);}if(!live)continue;conn->phase=reactor_phase::writing;static std::uint64_t r85_completions=0,r85_fallback=0;const bool r85_pending=reactor_flush(s,run,reactor,conn);++r85_completions;if(r85_pending){++r85_fallback;reactor->modify(handle,false,true);}if(r85_completions%100000==0)std::cerr<<"R85 completions="<<r85_completions<<" attempted="<<r85_completions<<" no_fallback="<<(r85_completions-r85_fallback)<<" EPOLLOUT_fallback="<<r85_fallback<<"\n";}
+             if(streams_active)reactor_arm_streams(run,reactor);
+             bool stopping=false;{std::lock_guard<std::mutex> lock(run->mutex);stopping=!run->accepting;}
+             try{reactor->wait(events,stopping?25:50);}catch(...){break;}

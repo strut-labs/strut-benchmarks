@@ -1,0 +1,316 @@
+698363 epoll_ctl(4, EPOLL_CTL_ADD, 5, {events=EPOLLIN, data=0x5}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_ADD, 3, {events=EPOLLIN, data=0x3}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_ADD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: t"..., iov_len=80}, {iov_base="Hello, World!", iov_len=13}], 2) = 93
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=0, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 200 OK\r\nContent-Type: a"..., iov_len=71}, {iov_base="{\n  \"message\": \"Hello, World!\"\n}", iov_len=32}], 2) = 103
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLIN, data=0x6}) = 0
+698363 epoll_ctl(4, EPOLL_CTL_MOD, 6, {events=EPOLLOUT, data=0x6}) = 0
+698363 writev(6, [{iov_base="HTTP/1.1 404 Not Found\r\nContent-"..., iov_len=105}, {iov_base="Not Found", iov_len=9}], 2) = 114
+698363 epoll_ctl(4, EPOLL_CTL_DEL, 6, NULL) = 0
+698363 --- SIGTERM {si_signo=SIGTERM, si_code=SI_USER, si_pid=698352, si_uid=1000} ---
+698367 +++ killed by SIGTERM +++
+698366 +++ killed by SIGTERM +++
+698365 +++ killed by SIGTERM +++
+698364 +++ killed by SIGTERM +++
+698368 +++ killed by SIGTERM +++
+698363 +++ killed by SIGTERM +++
